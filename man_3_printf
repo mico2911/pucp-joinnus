@@ -1,0 +1,47 @@
+.\" Manpage for _printf.
+.\" Contact 4465@holbertonschool.com to correct errors or typos.
+.TH man 3 "13 March 2022" "1.0" "_printf Library calls"
+.SH NAME
+_printf \- format and print data 
+.SH SYNOPSIS
+#include "main.h"
+
+int printf(const char *restrict format, ...);
+
+.SH DESCRIPTION
+_printf print ARGUMENT(s) according to FORMAT, or execute according to OPTION.
+
+The format string is composed of zero or more directives: ordinary characters (not %), which are copied unchanged to the output stream; and conversion specifications, each of which results in fetching zero or more subsequent arguments.  Each conversion specification is introduced by the character %, and ends with a conversion specifier.
+
+The overall syntax of a conversion specification is:
+
+%[$][flags][.precision][length modifier]conversion
+
+.SH OPTIONS
+Every format specification starts with a percent sign and ends with a letter. This cases are in _printf.
+
+%%	print a single %\n
+
+%c	print a character\n
+
+%s	print a string\n
+
+%d	print a digit\n
+
+%i	print an integer\n
+ 
+.SH BUGS
+No known bugs.
+
+.SH EXAMPLES
+To print a NAME (Yohel) and an AGE (31 years old). 
+
+#include "main.h"
+
+int age; age = 31;
+char *name; name = "Yohel"; 
+\n
+printf ( "I am %s and I am %d years old", name, age );
+
+.SH AUTHOR
+Carlos Soria (https://github.com/Soria-c) & Yohel Cruz (https://github.com/yohelce)
