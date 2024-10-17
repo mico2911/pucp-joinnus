@@ -1,0 +1,1 @@
+// Controlador para los eventos desde el modulo de administración

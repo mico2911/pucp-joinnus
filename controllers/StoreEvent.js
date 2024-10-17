@@ -1,0 +1,1 @@
+// Controlador para ver el detalle de un evento desde la tienda
