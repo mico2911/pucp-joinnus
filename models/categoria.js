@@ -1,8 +1,8 @@
 module.exports = class Categoria {
 
-    constructor(nombre, codigo) {
+    constructor(codigo, nombre) {
+        this.codigo = codigo;
         this.nombre = nombre;
-        this.codigo = codigo;  
     }
     
 }

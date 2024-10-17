@@ -1,8 +1,10 @@
 module.exports = class Evento {
 
-    constructor(nombre, urlImagen, descripcion, fecha, hora, lugar, ciudad) {
+    constructor(codigo, nombre, urlImagen, codCategoria, descripcion, fecha, hora, lugar, ciudad) {        
+        this.codigo = codigo;
         this.nombre = nombre;
         this.urlImagen = urlImagen;
+        this.codCategoria = codCategoria;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.hora = hora;
