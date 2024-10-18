@@ -1,3 +1,9 @@
+const path       = require('path');
+const fileHelper = require('../scripts/helpers/fileHelper');
+
+const raizDir = require('../scripts/utils/path');
+const p       = path.join(raizDir, 'data', 'eventos.json');
+
 module.exports = class Evento {
 
     constructor(codigo, nombre, urlImagen, codCategoria, descripcion, fecha, hora, lugar, ciudad) {        
@@ -16,4 +22,7 @@ module.exports = class Evento {
         return this.fecha + ' ' + this.hora;
     }
 
+    static fetchAllEvents() {
+        return fileHelper.leerArchivoJSON(p);
+    }
 }

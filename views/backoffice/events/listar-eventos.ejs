@@ -1,0 +1,17 @@
+<%- include('../../includes/head.ejs') %>
+</head>
+<body>
+    <main>
+        <% if (eventos.length > 0) { %>
+            <div class="grid">
+                <% for (let evento of eventos) { %>
+                    <h1 class="product__title"><%= evento.nombre %></h1>                    
+                <% } %>
+            </div>
+        <% } else { %>
+            <h1>No hay eventos</h1>
+        <% } %>
+
+    </main>
+</body>
+</html>
