@@ -1,0 +1,32 @@
+.header-backoffice {
+    display: flex;
+    align-items: center;
+    height: 58px;
+    background-color: #1A171B;
+    padding: 0 18px;
+}
+
+.backoffice-main {
+    .left-section {
+        width: 260px;
+
+        .user-section {
+            height: 98px;
+            background-color: #E4EDF5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
+
+    .content-wrapper {
+        padding: 32px;
+
+        .title-section {
+            font-weight: 700;
+            margin-bottom: 36px;            
+        }
+    }
+}

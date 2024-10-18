@@ -1,17 +1,54 @@
 <%- include('../../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/sidebar.css">    
+    <link rel="stylesheet" href="/css/backoffice/backoffice.css">
 </head>
-<body>
-    <main>
-        <% if (eventos.length > 0) { %>
-            <div class="grid">
-                <% for (let evento of eventos) { %>
-                    <h1 class="product__title"><%= evento.nombre %></h1>                    
-                <% } %>
-            </div>
-        <% } else { %>
-            <h1>No hay eventos</h1>
-        <% } %>
+<body class="backoffice-body">
+    <%- include('../../includes/header.ejs') %>
 
+    <main class="backoffice-main d-flex">
+        <div class="left-section">
+            <div class="user-section">
+                Usuario Administrador
+            </div>
+            <div class="sidebar-section">
+                <%- include('../../includes/sidebarBackOffice.ejs') %>
+            </div>
+        </div>
+        <div class="rigth-section">
+            <div class="content-wrapper">
+                <h1 class="title-section"><%= tituloSeccion %></h1>
+
+                <% if (eventos.length > 0) { %>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th class="nombre-col">Nombre</th>
+                                <th>Categoría</th>
+                                <th>Ciudad</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>                            
+                            <% for (let evento of eventos) { %>
+                                <tr>
+                                    <td><%= evento.codigo %></td>
+                                    <td><%= evento.nombre %></td>
+                                    <td><%= evento.nombreCategoria %></td>
+                                    <td><%= evento.ciudad %></td>                                    
+                                    <td>
+                                        <button class="btn btn-primary btn-sm">Editar</button>
+                                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                                    </td>
+                                </tr>
+                            <% } %>                            
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <h3>No hay eventos registrados</h3>
+                <% } %>
+            </div>            
+        </div>
     </main>
 </body>
 </html>

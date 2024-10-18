@@ -5,9 +5,10 @@ exports.getListaEventos = async (req, res) => {
         const eventosConCategorias = await eventsHelper.obtenerEventosConCategorias();
         
         res.render('backoffice/events/listar-eventos', {
-            eventos: eventosConCategorias,
-            titulo: "Administracion de eventos", 
-            path: "/backoffice/listar-eventos"
+            eventos       : eventosConCategorias,
+            titulo        : "Administracion de eventos", 
+            tituloSeccion : 'Listado de eventos',
+            opcion        : "listadoEventos"
         });
     } catch (error) {
         console.log('Error en el controlador OfficeEvent - getListaEventos: ', error);
