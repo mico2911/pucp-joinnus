@@ -28,5 +28,22 @@
             font-weight: 700;
             margin-bottom: 36px;            
         }
+
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input {
+            height: 38px;
+            background-color: #E9ECEF;
+            border: 1px solid #CED4DA;
+            display: block;
+            width: 100%;
+            color: #495057;
+            padding: 0 15px;
+        }
     }
 }

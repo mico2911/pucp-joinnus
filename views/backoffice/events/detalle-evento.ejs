@@ -1,0 +1,84 @@
+<%- include('../../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/sidebar.css">    
+    <link rel="stylesheet" href="/css/backoffice/backoffice.css">
+</head>
+<body class="backoffice-body">
+    <%- include('../../includes/header.ejs') %>
+
+    <main class="backoffice-main d-flex">
+        <div class="left-section">
+            <div class="user-section">
+                Usuario Administrador
+            </div>
+            <div class="sidebar-section">
+                <%- include('../../includes/sidebarBackOffice.ejs') %>
+            </div>
+        </div>
+        <div class="rigth-section w-100">
+            <div class="content-wrapper">
+                <h1 class="title-section"><%= tituloSeccion %></h1>
+
+                <form class="evento-form" action="/backoffice/<% if (modoEdicion) { %>editar-evento<% } else { %>crear-evento<% } %>" method="POST">
+
+                    <% if (modoEdicion) { %>
+                        <input type="hidden" value="<%= evento.codigo %>" name="codigo">
+                    <% } %>
+
+                    <div class="form-row">
+                        <div class="col-6">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" name="nombre" id="nombre" value="<% if (modoEdicion) { %><%= evento.nombre %><% } %>">
+                        </div>
+
+                        <div class="col-6">
+                            <label for="nombre">Categoría</label>
+                            <input type="text" name="nombre" id="nombre" value="<% if (modoEdicion) { %><%= evento.nombre %><% } %>">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-6">
+                            <label for="nombre">Fecha</label>
+                            <input type="date" name="nombre" id="nombre" value="<% if (modoEdicion) { %><%= evento.fecha %><% } %>">
+                        </div>
+
+                        <div class="col-6">
+                            <label for="nombre">Hora</label>
+                            <input type="text" name="nombre" id="nombre" value="<% if (modoEdicion) { %><%= evento.hora %><% } %>">
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="col-6">
+                            <label for="nombre">Lugar</label>
+                            <input type="text" name="nombre" id="nombre" value="<% if (modoEdicion) { %><%= evento.lugar %><% } %>">
+                        </div>
+
+                        <div class="col-6">
+                            <label for="nombre">Ciudad</label>
+                            <input type="text" name="nombre" id="nombre" value="<% if (modoEdicion) { %><%= evento.ciudad %><% } %>">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-12">
+                            <label for="nombre">Url Imagen</label>
+                            <input type="text" name="nombre" id="nombre" value="<% if (modoEdicion) { %><%= evento.urlImagen %><% } %>">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-12">
+                            <label for="nombre">Descripcion</label>
+                            <input type="text" name="nombre" id="nombre" value="<% if (modoEdicion) { %><%= evento.descripcion %><% } %>">
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" type="submit"><% if (modoEdicion) { %>Actualizar Evento<% } else { %>Crear Evento<% } %></button>
+                </form>                
+            </div>            
+        </div>
+    </main>
+</body>
+</html>

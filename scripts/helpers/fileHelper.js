@@ -16,6 +16,18 @@ const leerArchivoJSON = (ruta) => {
     });
 };
 
+const getDataFromFile = (p, cb) => {
+    // Metodo enseñado en clase
+    fs.readFile(p, (err, fileContent) => {
+        if (err) {
+            cb([]);
+        } else {
+            cb(JSON.parse(fileContent));
+        }
+    })
+}
+
 module.exports = {
-    leerArchivoJSON : leerArchivoJSON
+    leerArchivoJSON : leerArchivoJSON,
+    getDataFromFile : getDataFromFile
 };

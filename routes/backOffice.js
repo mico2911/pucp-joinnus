@@ -9,4 +9,8 @@ router.get('/', backOfficeController.getMenuPrincipal);
 
 router.get('/listado-eventos', officeEventController.getListaEventos);
 
+router.get('/creacion-evento', officeEventController.getCrearEvento);
+
+router.get('/editar-evento/:idEvento', officeEventController.getEditarEvento);
+
 module.exports = router;

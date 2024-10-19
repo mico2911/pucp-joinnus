@@ -25,4 +25,12 @@ module.exports = class Evento {
     static fetchAllEvents() {
         return fileHelper.leerArchivoJSON(p);
     }
+
+    static findByCode(codigo, cb) {
+        fileHelper.getDataFromFile(p, eventos => {
+            const evento = eventos.find(eve => eve.codigo === codigo);
+            cb(evento);
+        })
+    }
+
 }
