@@ -1,14 +1,29 @@
 <%- include('../../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/store/home.css">
+    <link rel="stylesheet" href="/css/store/pdp.css">
 </head>
-<body class="backoffice-body">
-    <main class="centered">
-        <h1><%= evento.nombre %></h1>
-        <hr>
-        <div>
+<body>
+    <%- include('../../includes/headerStore.ejs') %>
+    <main class="centered pdp-wrapper">
+        <div class="pdp-left">
             <img src="<%= evento.urlImagen %>" alt="<%= evento.imagen %>">
+            <p><%= evento.descripcion %></p>
         </div>
-        <p><%= evento.fecha %></p>
-        <p><%= evento.descripcion %></p>
+
+        <div class="pdp-rigth">
+            <h1><%= evento.nombre %></h1>
+            <p>Fecha: <%= evento.fecha %></p>
+            <p>Hora: <%= evento.hora %></p>
+
+            <div class="m-2">
+                <label for="">Entreda VIP</label>
+                <input type="number">
+                <label for="">Entreda General</label>
+                <input type="number">
+            </div>
+
+            <button class="btn btn-danger">Comprar</button>
+        </div>
     </main>
 </body>
 </html>

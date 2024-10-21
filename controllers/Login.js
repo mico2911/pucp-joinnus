@@ -7,6 +7,10 @@ const usuariosPath = path.join(__dirname, '..', 'data', 'usuarios.json');
 exports.login = async (req, res) => {
     const { correo, password } = req.body;
 
+    if (correo == 'admi@admi.pe' && password == '1234')  {        
+        return res.redirect('/backoffice/listado-eventos');
+    }
+
     // Verificar si el usuario existe
     const users = JSON.parse(fs.readFileSync(usuariosPath, 'utf8'));
     const user = users.find(user => user.correo === correo);
@@ -20,6 +24,5 @@ exports.login = async (req, res) => {
         return res.status(401).send('Contraseña incorrecta.');
     }
 
-    // Iniciar sesión exitoso
-    res.send(`Bienvenido, ${user.nombre}!`);
+    res.redirect('/tienda');
 };
