@@ -26,6 +26,12 @@
     }
 }
 
+.principal-banner {
+    img {
+        width: 100%;
+    }
+}
+
 .eventos-destacados {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
