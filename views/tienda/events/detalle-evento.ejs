@@ -1,0 +1,14 @@
+<%- include('../../includes/head.ejs') %>
+</head>
+<body class="backoffice-body">
+    <main class="centered">
+        <h1><%= evento.nombre %></h1>
+        <hr>
+        <div>
+            <img src="<%= evento.urlImagen %>" alt="<%= evento.imagen %>">
+        </div>
+        <p><%= evento.fecha %></p>
+        <p><%= evento.descripcion %></p>
+    </main>
+</body>
+</html>

@@ -16,7 +16,7 @@ exports.getEventos = (req, res, next) => {
 exports.getEvento = (req, res) => {
     const codigoEvento = req.params.codigoEvento;
     Evento.findByCode(codigoEvento, (evento)=>{
-        res.render('tienda/detalle-producto', {
+        res.render('tienda/events/detalle-producto', {
             ev : evento,
             titulo: evento.nombre,
             path: '/eventos',

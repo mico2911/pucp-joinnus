@@ -4,10 +4,10 @@ const router = express.Router();
 const homeController = require ('../controllers/Home');
 const accountController = require('../controllers/Account');
 const loginController = require('../controllers/Login');
+const storeEventController = require('../controllers/StoreEvent');
 
 router.get ('/', homeController.getIndex);
 router.get ('/eventos', homeController.getEventos);
-router.get ('/eventos/:codigoEvento', homeController.getEvento);
 
 router.get('/register', (req, res) => {
     res.render('tienda/register');
@@ -21,6 +21,6 @@ router.get('/login', (req, res) => {
 
 router.post('/login', loginController.login);
 
-module.exports = router;
+router.get('/detalle-evento/:codEvento', storeEventController.getDetalleEventoTienda);
 
 module.exports = router;
