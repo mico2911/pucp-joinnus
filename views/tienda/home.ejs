@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a Joinnus</title>
+</head>
+<body>
+    <main>
+        <% if (ev.length > 0) { %>
+            <div class="grid">
+                <% for (let evento of ev) { %>
+                    <article class="card event-item">
+                        <header class="card__header">
+                            <h1 class="event_tittle"><%= evento.nombre %></h1>
+                        </header>
+                        <div class="card__image">
+                            <img src="<%=evento.urlImagen %>"
+                                alt="<%= evento.nombre %>">
+                        </div>
+                        <div class="card__content">
+                            <h2 class="event__lugar"> <%= evento.lugar %></h2>
+                            <p class="event_description"><%= evento.descripcion %></p>
+                        </div>
+                        <div class="card__actions">
+                            <a href="/eventos/<%= evento.codigo %>" class="btn"> Detalles</a>
+                        </div>
+                    </article>
+                <% } %>
+            </div>
+        <% } else { %>
+            <h1>No hay eventos para mostrar</h1>
+        <% } %>
+    </main>
+</body>
+</html>

@@ -58,4 +58,9 @@ module.exports = class Evento {
         })
     }
 
+    static getEventsList(cb) {
+        fileHelper.getDataFromFile(p, eventos => {
+            cb(eventos);
+        })
+    }
 }
