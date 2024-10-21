@@ -14,5 +14,10 @@ module.exports = class Categoria {
     static fetchAllCategories() {
         return fileHelper.leerArchivoJSON(p);
     }
-    
+
+    static getCategoriesList(cb) {
+        fileHelper.getDataFromFile(p, categorias => {
+            cb(categorias);
+        })
+    }
 }

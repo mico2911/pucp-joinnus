@@ -1,5 +1,6 @@
 const eventsHelper = require ('../scripts/helpers/eventsHelper');
 const Evento       = require('../models/evento');
+const Categoria    = require('../models/categoria');
 
 exports.getListaEventos = async (req, res) => {
     try {
@@ -21,12 +22,35 @@ exports.getListaEventos = async (req, res) => {
 };
 
 exports.getCrearEvento = (req, res) => {
-    res.render('backoffice/events/detalle-evento', { 
-        titulo        : 'Creación Evento', 
-        tituloSeccion : 'Creación de eventos',
-        opcion        : 'creacionEvento',
-        modoEdicion   : false
+    let categorias = [];
+    Categoria.getCategoriesList(categoriasObtenidas => {
+        categorias = categoriasObtenidas;
+
+        res.render('backoffice/events/detalle-evento', { 
+            titulo        : 'Creación Evento', 
+            tituloSeccion : 'Creación de eventos',
+            opcion        : 'creacionEvento',
+            categorias    : categorias,
+            modoEdicion   : false
+        })
     })
+};
+
+exports.postCrearEvento = (req, res) => {
+    const nombre       = req.body.nombre;
+    const urlImagen    = req.body.urlImagen;
+    const codCategoria = req.body.codCategoria;    
+    const descripcion  = req.body.descripcion;
+    const fecha        = req.body.fecha;
+    const hora         = req.body.hora;
+    const lugar        = req.body.lugar;
+    const ciudad       = req.body.ciudad;
+
+    const evento = new Evento(null, nombre, urlImagen, codCategoria, descripcion, fecha, hora, lugar, ciudad);
+
+    evento.save();
+
+    res.redirect('/backoffice/listado-eventos');
 };
 
 exports.getEditarEvento = (req, res) => {
@@ -38,12 +62,37 @@ exports.getEditarEvento = (req, res) => {
             return res.redirect('/');
         }
 
-        res.render('backoffice/events/detalle-evento', { 
-            titulo        : 'Editar Producto',             
-            tituloSeccion : 'Edición de eventos',
-            opcion        : 'listadoEventos',
-            evento        : evento,
-            modoEdicion   : true,
+        let categorias = [];
+        
+        Categoria.getCategoriesList(categoriasObtenidas => {
+            categorias = categoriasObtenidas;
+
+            res.render('backoffice/events/detalle-evento', { 
+                titulo        : 'Editar Producto',             
+                tituloSeccion : 'Edición de eventos',
+                opcion        : 'listadoEventos',
+                categorias    : categorias,
+                evento        : evento,
+                categoriaSeleccionada : evento.codCategoria, 
+                modoEdicion   : true,
+            })
         })
     })
 }
+
+exports.postEditarEvento = (req, res, next) => {
+    const codigo       = req.body.codigo;
+    const nombre       = req.body.nombre;
+    const urlImagen    = req.body.urlImagen;
+    const codCategoria = req.body.codCategoria;    
+    const descripcion  = req.body.descripcion;
+    const fecha        = req.body.fecha;
+    const hora         = req.body.hora;
+    const lugar        = req.body.lugar;
+    const ciudad       = req.body.ciudad;
+
+    const eventoActualizado = new Evento(codigo, nombre, urlImagen, codCategoria, descripcion, fecha, hora, lugar, ciudad);
+    
+    eventoActualizado.save();
+    res.redirect('/backoffice/listado-eventos');
+};

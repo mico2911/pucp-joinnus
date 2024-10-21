@@ -36,7 +36,7 @@
             gap: 20px;
         }
 
-        input {
+        input, select {
             height: 38px;
             background-color: #E9ECEF;
             border: 1px solid #CED4DA;
