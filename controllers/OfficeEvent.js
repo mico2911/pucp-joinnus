@@ -1,3 +1,4 @@
+const { format }   = require('date-fns');
 const eventsHelper = require ('../scripts/helpers/eventsHelper');
 const Evento       = require('../models/evento');
 const Categoria    = require('../models/categoria');
@@ -5,9 +6,9 @@ const Categoria    = require('../models/categoria');
 exports.getListaEventos = async (req, res) => {
     Evento
     .find().populate('categoria')
-    .then(productos => {
+    .then(eventos => {
         res.render('backoffice/events/listar-eventos', {
-            eventos       : productos,
+            eventos       : eventos,
             titulo        : "Administracion de eventos", 
             tituloSeccion : 'Listado de eventos',
             opcion        : 'listadoEventos'
@@ -81,6 +82,7 @@ exports.getEditarEvento = (req, res) => {
                 opcion        : 'listadoEventos',
                 categorias    : categorias,
                 evento        : evento,
+                fechaEvento   : format(evento.fecha, 'yyyy-MM-dd'),
                 categoriaSeleccionada : evento.categoria, 
                 modoEdicion   : true,
             })
@@ -97,7 +99,7 @@ exports.postEditarEvento = (req, res, next) => {
     const idEvento     = req.body.idEvento;
     const nombre       = req.body.nombre;
     const urlImagen    = req.body.urlImagen;
-    const codCategoria = req.body.codCategoria;
+    const categoria    = req.body.idCategoria;
     const descripcion  = req.body.descripcion;
     const fecha        = req.body.fecha;
     const hora         = req.body.hora;
@@ -108,6 +110,7 @@ exports.postEditarEvento = (req, res, next) => {
     .then(producto => {
       producto.nombre      = nombre;
       producto.urlImagen   = urlImagen;
+      producto.categoria   = categoria;
       producto.descripcion = descripcion;
       producto.fecha       = fecha;
       producto.hora        = hora;
