@@ -15,6 +15,10 @@
   "dependencies": {
     "body-parser": "^1.20.3",
     "ejs": "^3.1.10",
-    "express.js": "^1.0.0"
+    "express.js": "^1.0.0",
+    "mongodb": "^6.10.0",
+    "mongoose": "^8.7.3",
+    "mysql2": "^3.11.3",
+    "sequelize": "^6.37.4"
   }
 }

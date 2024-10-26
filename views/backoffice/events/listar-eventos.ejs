@@ -21,10 +21,10 @@
                 <% if (eventos.length > 0) { %>
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th>Código</th>
+                            <tr>                                
                                 <th class="nombre-col">Nombre</th>
                                 <th>Categoría</th>
+                                <th>Lugar</th>
                                 <th>Ciudad</th>
                                 <th>Opciones</th>
                             </tr>
@@ -32,10 +32,10 @@
                         <tbody>                            
                             <% for (let evento of eventos) { %>
                                 <tr>
-                                    <td><%= evento.codigo %></td>
                                     <td><%= evento.nombre %></td>
-                                    <td><%= evento.nombreCategoria %></td>
-                                    <td><%= evento.ciudad %></td>                                    
+                                    <td><%= evento.categoria.nombre %></td>
+                                    <td><%= evento.lugar %></td>
+                                    <td><%= evento.ciudad %></td>
                                     <td>
                                         <a href="/backoffice/editar-evento/<%= evento.codigo %>" class="btn btn-primary btn-sm">Editar</a>
                                         <button class="btn btn-danger btn-sm">Eliminar</button>

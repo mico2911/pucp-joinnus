@@ -1,11 +1,11 @@
-<select name="codCategoria" id="codCategoria">
+<select name="idCategoria" id="idCategoria">
     <% if (modoEdicion) { %>
         <% for (let cat of categorias) { %>
-            <option value="<%= cat.codigo %>" <%= cat.codigo === categoriaSeleccionada ? 'selected' : '' %> ><%= cat.nombre %></option>       
+            <option value="<%= cat._id %>" <%= cat.codigo === categoriaSeleccionada ? 'selected' : '' %> ><%= cat.nombre %></option>       
         <% } %>
     <% } else { %>
         <% for (let cat of categorias) { %>
-            <option value="<%= cat.codigo %>"><%= cat.nombre %></option>       
+            <option value="<%= cat._id %>"><%= cat.nombre %></option>       
         <% } %>
     <% } %>
     

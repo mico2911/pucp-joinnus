@@ -3,29 +3,23 @@ const Evento       = require('../models/evento');
 const Categoria    = require('../models/categoria');
 
 exports.getListaEventos = async (req, res) => {
-    try {
-        const eventosConCategorias = await eventsHelper.obtenerEventosConCategorias();
-        
+    Evento
+    .find().populate('categoria')
+    .then(productos => {
         res.render('backoffice/events/listar-eventos', {
-            eventos       : eventosConCategorias,
+            eventos       : productos,
             titulo        : "Administracion de eventos", 
             tituloSeccion : 'Listado de eventos',
             opcion        : 'listadoEventos'
         });
-    } catch (error) {
-        console.log('Error en el controlador OfficeEvent - getListaEventos: ', error);
-
-        res.status(500).render('error', {
-            mensaje: "No se pudieron cargar los eventos."
-        });
-    }
+    })
+    .catch(err => console.log(err));
 };
 
 exports.getCrearEvento = (req, res) => {
-    let categorias = [];
-    Categoria.getCategoriesList(categoriasObtenidas => {
-        categorias = categoriasObtenidas;
-
+    Categoria
+    .find()
+    .then(categorias => {
         res.render('backoffice/events/detalle-evento', { 
             titulo        : 'Creación Evento', 
             tituloSeccion : 'Creación de eventos',
@@ -34,23 +28,39 @@ exports.getCrearEvento = (req, res) => {
             modoEdicion   : false
         })
     })
+    .catch(err => console.log(err));
 };
 
 exports.postCrearEvento = (req, res) => {
     const nombre       = req.body.nombre;
     const urlImagen    = req.body.urlImagen;
-    const codCategoria = req.body.codCategoria;    
+    const idCategoria = req.body.idCategoria;
     const descripcion  = req.body.descripcion;
     const fecha        = req.body.fecha;
     const hora         = req.body.hora;
     const lugar        = req.body.lugar;
     const ciudad       = req.body.ciudad;
 
-    const evento = new Evento(null, nombre, urlImagen, codCategoria, descripcion, fecha, hora, lugar, ciudad);
+    const evento = new Evento({
+        nombre      : nombre, 
+        descripcion : descripcion,
+        categoria   : idCategoria,
+        fecha       : fecha,
+        hora        : hora,
+        lugar       : lugar,
+        ciudad      : ciudad,
+        urlImagen   : urlImagen
+    });
 
-    evento.save();
-
-    res.redirect('/backoffice/listado-eventos');
+    evento
+      .save()
+      .then(result => {
+        console.log('Evento Creado');
+        res.redirect('/backoffice/listado-eventos');
+      })
+      .catch(err => {
+        console.log(err);
+    });
 };
 
 exports.getEditarEvento = (req, res) => {
