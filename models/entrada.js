@@ -1,11 +1,14 @@
-module.exports = class Entrada {
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-    constructor(codigo, codEvento, codTipoEntrada, precio, cantidadVenta) {        
-        this.codigo = codigo;
-        this.codEvento = codEvento;
-        this.codTipoEntrada = codTipoEntrada;
-        this.precio = precio;
-        this.cantidadVenta = cantidadVenta;
-    }
+const entradaSchema = new Schema({
+    compra: { type: Schema.Types.ObjectId, ref: 'Compra' },
+    evento: { type: Schema.Types.ObjectId, ref: 'Evento', required: true },
+    tipoEntrada: { type: Schema.Types.ObjectId, ref: 'TipoEntrada', required: true },
+    precio: { type: Number, required: true },
+    cantidad: { type: Number, required: true },
+    fechaCompra: { type: Date, default: Date.now },
+    estado: { type: String, enum: ['vigente', 'expirada'], default: 'vigente' }
+});
 
-}
+module.exports = mongoose.model('Entrada', entradaSchema);

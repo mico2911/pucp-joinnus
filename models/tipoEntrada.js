@@ -1,8 +1,9 @@
-module.exports = class TipoEntrada {
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-    constructor(codigo, nombre) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-    }
-    
-}
+const tipoEntradaSchema = new Schema({
+    nombre: { type: String, required: true },
+    descripcion: { type: String }
+});
+
+module.exports = mongoose.model('TipoEntrada', tipoEntradaSchema);

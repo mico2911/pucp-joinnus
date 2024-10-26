@@ -1,18 +1,17 @@
-module.exports = class Usuario {
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-    constructor(nombre, apellido, dni, fechaNacimiento, genero, ciudad, correo, password) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.fechaNacimiento = fechaNacimiento;
-        this.genero = genero;
-        this.ciudad = ciudad;
-        this.correo = correo;
-        this.password = password;
-    }
+const usuarioSchema = new Schema({
+    nombre: { type: String, required: true },
+    apellido: { type: String, required: true },
+    dni: { type: String, required: true },
+    fechaNacimiento: { type: String, required: false },
+    genero: { type: String, required: false },
+    celular: { type: String, required: false },
+    correo: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    eventosFavoritos: [{ type: Schema.Types.ObjectId, ref: 'Evento' }],
+    compras: [{ type: Schema.Types.ObjectId, ref: 'Compra' }]
+});
 
-    static getGeneros() {
-        return ['Masculino', 'Femenimo'];
-    }
-
-}
+module.exports = mongoose.model('Usuarios', usuarioSchema);
