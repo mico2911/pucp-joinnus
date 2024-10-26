@@ -2,15 +2,16 @@
 const Evento = require('../models/evento');
 
 exports.getEventos = (req, res, next) => {
-    let eventos = [];
-    Evento.getEventsList(eventosObtenidos => {
-        eventos = eventosObtenidos;
+    Evento
+    .find()
+    .then(eventos => {
         res.render('lista-eventos', {
-            ev: eventos,
-            titulo: "Nuestros Eventos", 
-            path: "/eventos"
+            ev     : eventos,
+            titulo : "Nuestros Eventos", 
+            path   : "/eventos"
         });
-    });
+    })
+    .catch(err => console.log(err));
 };
 
 exports.getEvento = (req, res) => {
@@ -26,11 +27,14 @@ exports.getEvento = (req, res) => {
 
 exports.getIndex = (req, res, next) => {
     console.log('Ruta raíz alcanzada');
-    Evento.getEventsList(eventos => {
+    Evento
+    .find()
+    .then(eventos => {
         res.render('tienda/home', {
-            ev: eventos,
-            titulo: "Bienvenido a Joinnus", 
-            path: "/"
+            ev     : eventos,
+            titulo : "Bienvenido a Joinnus", 
+            path   : "/"
         });
-    });
+    })
+    .catch(err => console.log(err));
 };

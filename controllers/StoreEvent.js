@@ -2,10 +2,11 @@
 const Evento = require('../models/evento');
 
 exports.getDetalleEventoTienda = async (req, res) => {
-    const codEvento = req.params.codEvento;
+    const idEvento = req.params.idEvento;
 
     try {
-        Evento.findByCode(codEvento, evento => {
+        Evento.findById(idEvento)
+        .then(evento => {
             if (!evento) {
                 return res.status(404).render('error', {
                     mensaje: "Evento no encontrado."
@@ -18,6 +19,9 @@ exports.getDetalleEventoTienda = async (req, res) => {
                 opcion: 'detalleEvento'
             })
         })
+        .catch(err => {
+            console.log(err);
+        });
     } catch (e) {
         console.log(e);
     }

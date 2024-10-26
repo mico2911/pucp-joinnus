@@ -21,6 +21,6 @@ router.get('/login', (req, res) => {
 
 router.post('/login', loginController.login);
 
-router.get('/detalle-evento/:codEvento', storeEventController.getDetalleEventoTienda);
+router.get('/detalle-evento/:idEvento', storeEventController.getDetalleEventoTienda);
 
 module.exports = router;
