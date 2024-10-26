@@ -66,16 +66,14 @@ exports.postCrearEvento = (req, res) => {
 exports.getEditarEvento = (req, res) => {
     const idEvento = req.params.idEvento;
 
-    Evento.findByCode(idEvento, evento => {
-        
-        if (!evento) {
-            return res.redirect('/');
-        }
-
-        let categorias = [];
-        
-        Categoria.getCategoriesList(categoriasObtenidas => {
-            categorias = categoriasObtenidas;
+    Categoria
+    .find()
+    .then(categorias => {
+        Evento.findById(idEvento)
+        .then(evento => {
+            if (!evento) {
+                return res.redirect('/backoffice/listado-eventos');
+            }
 
             res.render('backoffice/events/detalle-evento', { 
                 titulo        : 'Editar Producto',             
@@ -83,26 +81,51 @@ exports.getEditarEvento = (req, res) => {
                 opcion        : 'listadoEventos',
                 categorias    : categorias,
                 evento        : evento,
-                categoriaSeleccionada : evento.codCategoria, 
+                categoriaSeleccionada : evento.categoria, 
                 modoEdicion   : true,
             })
         })
+        .catch(err => {
+            console.log(err);
+            return res.redirect('/backoffice/listado-eventos');
+        });
     })
+    .catch(err => console.log(err));
 }
 
 exports.postEditarEvento = (req, res, next) => {
-    const codigo       = req.body.codigo;
+    const idEvento     = req.body.idEvento;
     const nombre       = req.body.nombre;
     const urlImagen    = req.body.urlImagen;
-    const codCategoria = req.body.codCategoria;    
+    const codCategoria = req.body.codCategoria;
     const descripcion  = req.body.descripcion;
     const fecha        = req.body.fecha;
     const hora         = req.body.hora;
     const lugar        = req.body.lugar;
     const ciudad       = req.body.ciudad;
 
-    const eventoActualizado = new Evento(codigo, nombre, urlImagen, codCategoria, descripcion, fecha, hora, lugar, ciudad);
-    
-    eventoActualizado.save();
-    res.redirect('/backoffice/listado-eventos');
+    Evento.findById(idEvento)
+    .then(producto => {
+      producto.nombre      = nombre;
+      producto.urlImagen   = urlImagen;
+      producto.descripcion = descripcion;
+      producto.fecha       = fecha;
+      producto.hora        = hora;
+      producto.lugar       = lugar;
+      producto.ciudad      = ciudad;
+      return producto.save();
+    })
+    .then(result => {
+      res.redirect('/backoffice/listado-eventos');
+    })
+    .catch(err => console.log(err));
 };
+
+exports.postEliminarEvento = (req, res, next) => {
+    const idEvento = req.body.idEvento;
+    Evento.findByIdAndDelete(idEvento)
+      .then(() => {
+        res.redirect('/backoffice/listado-eventos');
+      })
+      .catch(err => console.log(err));
+}; 

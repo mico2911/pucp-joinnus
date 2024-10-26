@@ -21,7 +21,7 @@
                 <form class="evento-form" action="/backoffice/<% if (modoEdicion) { %>editar-evento<% } else { %>creacion-evento<% } %>" method="POST">
 
                     <% if (modoEdicion) { %>
-                        <input type="hidden" value="<%= evento.codigo %>" name="codigo">
+                        <input type="hidden" value="<%= evento._id %>" name="idEvento">
                     <% } %>
 
                     <div class="form-row">
