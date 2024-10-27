@@ -1,14 +1,25 @@
 // Controlador para mostrar el Home
+const { format, parseISO } = require('date-fns');
+const { es } = require('date-fns/locale');
 const Evento = require('../models/evento');
 
-exports.getEventos = (req, res, next) => {
+exports.getIndex = (req, res, next) => {
+    console.log('Ruta raíz alcanzada');
     Evento
     .find()
     .then(eventos => {
-        res.render('lista-eventos', {
-            ev     : eventos,
-            titulo : "Nuestros Eventos", 
-            path   : "/eventos"
+        const eventosFormateados = eventos.map(evento => {
+            const fechaFormateada = format(evento.fecha, 'dd/MM/yyyy');
+            return {
+                ...evento.toObject(),
+                fecha: fechaFormateada
+            };
+        });
+
+        res.render('tienda/home', {
+            ev     : eventosFormateados,
+            titulo : "Bienvenido a Joinnus", 
+            path   : "/"
         });
     })
     .catch(err => console.log(err));
@@ -25,15 +36,15 @@ exports.getEvento = (req, res) => {
     })
 }
 
-exports.getIndex = (req, res, next) => {
-    console.log('Ruta raíz alcanzada');
+// Posiblemente se elimine
+exports.getEventos = (req, res, next) => {
     Evento
     .find()
     .then(eventos => {
-        res.render('tienda/home', {
+        res.render('lista-eventos', {
             ev     : eventos,
-            titulo : "Bienvenido a Joinnus", 
-            path   : "/"
+            titulo : "Nuestros Eventos", 
+            path   : "/eventos"
         });
     })
     .catch(err => console.log(err));

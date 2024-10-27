@@ -7,7 +7,7 @@ const loginController = require('../controllers/Login');
 const storeEventController = require('../controllers/StoreEvent');
 
 router.get ('/', homeController.getIndex);
-router.get ('/eventos', homeController.getEventos);
+//router.get ('/eventos', homeController.getEventos);
 
 router.get('/register', (req, res) => {
     res.render('tienda/register');

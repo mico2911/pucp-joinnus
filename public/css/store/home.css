@@ -32,15 +32,27 @@
     }
 }
 
+.principal-events {
+    padding-left: 15px;
+    padding-right: 15px;
+    
+    .subtitle-home {
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #1A171B;
+    }
+}
+
 .eventos-destacados {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    padding: 15px;
 }
 
 .evento {
     border-radius: 10px;
+    height: 360px;
 }
 
 .evento:hover {
@@ -48,26 +60,33 @@
 }
 
 .info-evento {
-    padding: 15px 30px;
+    padding: 15px;
     line-height: 0.5;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.lugar {
-    font-size: 18px;
-    font-weight: 900;
-}
-
 .title-event {
-    line-height: normal;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    height: 42px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .evento img {
     border-radius: 10px 10px 0 0;
     height: 184px;
     width: 100%;
+}
+
+.time-info {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 15px;
 }
 
 .info-evento .btn-comprar {
