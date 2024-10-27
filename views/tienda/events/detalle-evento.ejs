@@ -4,25 +4,51 @@
 </head>
 <body>
     <%- include('../../includes/headerStore.ejs') %>
-    <main class="centered pdp-wrapper">
-        <div class="pdp-left">
-            <img src="<%= evento.urlImagen %>" alt="<%= evento.imagen %>">
+    <main class="row centered pdp-wrapper">
+        <div class="col-12 col-md-6 col-lg-7 pdp-left">
+            <div class="mb-3">
+                <img class="w-100" src="<%= evento.urlImagen %>" alt="<%= evento.imagen %>">
+            </div>
+
             <p><%= evento.descripcion %></p>
         </div>
 
-        <div class="pdp-rigth">
-            <h1><%= evento.nombre %></h1>
-            <p>Fecha: <%= evento.fecha %></p>
-            <p>Hora: <%= evento.hora %></p>
+        <div class="col-12 col-md-6 col-lg-5 pdp-rigth">
+            <div class="border-0 mb-3 bg-white shadow-sm">
+                <div class="pb-3">
+                    <div class="p-3">
+                        <h5 class="mb-4 text-dark text-capitalize">
+                            <b><%= evento.nombre %></b>
+                        </h5>
+                        <div>
+                            <div class="row mb-3">
+                                <div class="col-3"> <div class="text-dark">Fecha</div> </div>
+                                <div class="col"> <div><%= fechaFormateada %></div> </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-3"> <div class="text-dark">Hora</div> </div>
+                                <div class="col"> <div><%= evento.hora %></div> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3"><h5 class="mb-0"><b class="text-dark">Entradas</b></h5></div>
+                </div>
+                
+    
+                <div class="m-2">
+                    <div class="row">
+                        <label for="">Entreda VIP</label>
+                        <input type="number">
+                    </div>
 
-            <div class="m-2">
-                <label for="">Entreda VIP</label>
-                <input type="number">
-                <label for="">Entreda General</label>
-                <input type="number">
-            </div>
-
-            <button class="btn btn-danger">Comprar</button>
+                    <div class="row">
+                        <label for="">Entreda General</label>
+                        <input type="number">
+                    </div>
+                </div>
+    
+                <button class="btn btn-danger">Comprar</button>
+            </div>     
         </div>
     </main>
 </body>
