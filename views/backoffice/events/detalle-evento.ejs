@@ -44,7 +44,7 @@
 
                         <div class="col-6">
                             <label for="hora">Hora</label>
-                            <input type="text" name="hora" id="hora" value="<% if (modoEdicion) { %><%= evento.hora %><% } %>">
+                            <%- include('../../includes/opcionesHoras.ejs') %>
                         </div>
                     </div>
 

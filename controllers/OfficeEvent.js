@@ -18,6 +18,7 @@ exports.getListaEventos = async (req, res) => {
 };
 
 exports.getCrearEvento = (req, res) => {
+    const horariosForm = eventsHelper.getHoursOptions();
     Categoria
     .find()
     .then(categorias => {
@@ -26,6 +27,7 @@ exports.getCrearEvento = (req, res) => {
             tituloSeccion : 'Creación de eventos',
             opcion        : 'creacionEvento',
             categorias    : categorias,
+            horariosForm  : horariosForm,
             modoEdicion   : false
         })
     })
@@ -66,6 +68,7 @@ exports.postCrearEvento = (req, res) => {
 
 exports.getEditarEvento = (req, res) => {
     const idEvento = req.params.idEvento;
+    const horariosForm = eventsHelper.getHoursOptions();
 
     Categoria
     .find()
@@ -81,6 +84,7 @@ exports.getEditarEvento = (req, res) => {
                 tituloSeccion : 'Edición de eventos',
                 opcion        : 'listadoEventos',
                 categorias    : categorias,
+                horariosForm  : horariosForm,
                 evento        : evento,
                 fechaEvento   : format(evento.fecha, 'yyyy-MM-dd'),
                 categoriaSeleccionada : evento.categoria, 
