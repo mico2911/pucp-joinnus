@@ -32,9 +32,18 @@
     }
 }
 
+.container-section {
+    display: flex;
+    justify-content: center;
+}
+
 .principal-events {
     padding-left: 15px;
     padding-right: 15px;
+
+    @media (min-width: 1360px) {        
+        max-width: 1300px;
+    }
     
     .subtitle-home {
         font-size: 32px;
@@ -87,6 +96,8 @@
     justify-content: start;
     align-items: center;
     gap: 15px;
+    background-color: #F1F6F5;
+    padding: 4px 16px;
 }
 
 .info-evento .btn-comprar {
