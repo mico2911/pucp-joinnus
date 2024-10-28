@@ -34,20 +34,20 @@
                     <div class="p-3"><h5 class="mb-0"><b class="text-dark">Entradas</b></h5></div>
                 </div>
                 
-    
-                <div class="m-2">
-                    <div class="row">
-                        <label for="">Entreda VIP</label>
-                        <input type="number">
-                    </div>
+                <form action="/store/realizar-compra" method="POST">
+                    <input type="hidden" value="<%= evento._id %>" name="idEvento">
+                    <input type="hidden" value="" name="idUser">
+                    
+                    <% if (evento.catalogoEntradas.length > 0) { %>
+                        <% for (let entrada of evento.catalogoEntradas) { %>
+                            <%- include('../../includes/entradas-eventos', {entrada: entrada}) %>
+                        <% } %>
 
-                    <div class="row">
-                        <label for="">Entreda General</label>
-                        <input type="number">
-                    </div>
-                </div>
-    
-                <button class="btn btn-danger">Comprar</button>
+                        <button class="btn btn-danger">Comprar</button>
+                    <% } else { %>
+                        <h4 class="p-3">No hay entradas registradas</h4>
+                    <% } %>                    
+                </form>                
             </div>     
         </div>
     </main>

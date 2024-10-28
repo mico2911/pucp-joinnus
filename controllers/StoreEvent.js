@@ -1,12 +1,19 @@
 // Controlador para ver el detalle de un evento desde la tienda
-const Evento     = require('../models/evento');
+const Evento      = require('../models/evento');
+const TipoEntrada = require('../models/tipoEntrada');
 const { format } = require('date-fns');
 
 exports.getDetalleEventoTienda = async (req, res) => {
     const idEvento = req.params.idEvento;
 
     try {
-        Evento.findById(idEvento)
+        Evento.findById(idEvento).populate({
+            path: 'catalogoEntradas',
+            populate: {
+                path: 'tipoEntrada',
+                select: 'nombre'
+            }
+        })
         .then(evento => {
             if (!evento) {
                 return res.status(404).render('error', {
