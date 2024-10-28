@@ -19,4 +19,16 @@ const eventoSchema = new Schema({
     activo: { type: Boolean, default: true }
 });
 
+eventoSchema.methods.agregarEntrada = function(tipoEntradaId, precio, cantidadEntradasTotal) {
+    const nuevaEntrada = {
+        tipoEntrada: tipoEntradaId,
+        precio: precio,
+        cantidadEntradasTotal: cantidadEntradasTotal,
+        cantidadEntradasRestantes: cantidadEntradasTotal
+    };
+
+    this.catalogoEntradas.push(nuevaEntrada);
+    return this.save();
+};
+
 module.exports = mongoose.model('Evento', eventoSchema);

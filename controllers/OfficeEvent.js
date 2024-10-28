@@ -136,3 +136,33 @@ exports.postEliminarEvento = (req, res, next) => {
       })
       .catch(err => console.log(err));
 }; 
+
+exports.getListaEventosEntradas = async (req, res) => {
+    Evento
+    .find()
+    .then(eventos => {
+        res.render('backoffice/events/listar-eventos-entradas', {
+            eventos       : eventos,
+            titulo        : "Administracion de entradas de eventos", 
+            tituloSeccion : 'Listado de entradas de eventos',
+            opcion        : 'entradas'
+        });
+    })
+    .catch(err => console.log(err));
+};
+
+exports.postCrearEntrada = (req, res, next) => {
+    const idEvento      = req.body.idEvento;
+    const idTipoEntrada = req.body.idTipoEntrada;
+    const precio        = req.body.precio
+    const cantidad      = req.body.cantidad;
+
+    Evento.findById(idEvento)
+      .then(evento => {
+        return evento.agregarEntrada(idTipoEntrada, precio, cantidad);
+      })
+      .then(result => {
+        console.log(result);
+        res.redirect('/backoffice/listado-eventos');
+      });
+};

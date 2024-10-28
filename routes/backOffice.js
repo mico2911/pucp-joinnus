@@ -17,4 +17,6 @@ router.post('/editar-evento', officeEventController.postEditarEvento);
 
 router.post('/eliminar-evento', officeEventController.postEliminarEvento);
 
+router.get('/listado-eventos-entradas', officeEventController.getListaEventosEntradas);
+
 module.exports = router;
