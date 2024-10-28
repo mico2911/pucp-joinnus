@@ -1,6 +1,7 @@
 const { format }   = require('date-fns');
 const eventsHelper = require ('../scripts/helpers/eventsHelper');
 const Evento       = require('../models/evento');
+const TipoEntrada  = require('../models/tipoEntrada');
 const Categoria    = require('../models/categoria');
 
 exports.getListaEventos = async (req, res) => {
@@ -137,16 +138,35 @@ exports.postEliminarEvento = (req, res, next) => {
       .catch(err => console.log(err));
 }; 
 
-exports.getListaEventosEntradas = async (req, res) => {
+exports.getListaEntradasEventos = async (req, res) => {
     Evento
     .find()
     .then(eventos => {
-        res.render('backoffice/events/listar-eventos-entradas', {
+        res.render('backoffice/entradas/listar-entradas-eventos', {
             eventos       : eventos,
             titulo        : "Administracion de entradas de eventos", 
             tituloSeccion : 'Listado de entradas de eventos',
             opcion        : 'entradas'
         });
+    })
+    .catch(err => console.log(err));
+};
+
+exports.getCrearEntradasEventos = async (req, res) => {
+    Evento
+    .find()
+    .then(eventos => {
+        TipoEntrada.find()
+        .then(tiposEntradas => {
+            res.render('backoffice/entradas/crear-entrada-evento', {
+                eventos       : eventos,
+                tiposEntradas : tiposEntradas,
+                titulo        : "Creación entradas", 
+                tituloSeccion : 'Creación de entradas para eventos',
+                opcion        : 'creacionEntrada'
+            });
+        })
+        .catch(err => console.log(err));        
     })
     .catch(err => console.log(err));
 };
