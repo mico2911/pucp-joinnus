@@ -183,6 +183,57 @@ exports.postCrearEntrada = (req, res, next) => {
       })
       .then(result => {
         console.log(result);
-        res.redirect('/backoffice/listado-eventos');
+        res.redirect('/backoffice/listado-entradas-eventos');
       });
 };
+
+// Faltan corregir los 3 ultimos controladores
+exports.getEditarEntradasEventos = async (req, res) => {
+    const idEvento = req.params.idEvento;
+
+    Evento.findById(idEvento)
+    .then(evento => {
+        if (!evento) {
+            return res.redirect('/backoffice/listado-entradas-eventos');
+        }
+
+        res.render('backoffice/entradas/detalle-entradas-evento', { 
+            titulo        : 'Entradas para evento',             
+            tituloSeccion : 'Entradas para el evento',
+            opcion        : 'entradas',
+            evento        : evento            
+        })
+    })
+    .catch(err => {
+        console.log(err);
+        return res.redirect('/backoffice/listado-entradas-eventos');
+    });
+};
+
+exports.postEditarEntrada = async (req, res) => {
+    Evento
+    .find()
+    .then(eventos => {
+        TipoEntrada.find()
+        .then(tiposEntradas => {
+            res.render('backoffice/entradas/crear-entrada-evento', {
+                eventos       : eventos,
+                tiposEntradas : tiposEntradas,
+                titulo        : "Creación entradas", 
+                tituloSeccion : 'Creación de entradas para eventos',
+                opcion        : 'creacionEntrada'
+            });
+        })
+        .catch(err => console.log(err));        
+    })
+    .catch(err => console.log(err));
+};
+
+exports.postEliminarEntrada = (req, res, next) => {
+    const idEvento = req.body.idEvento;
+    Evento.findByIdAndDelete(idEvento)
+      .then(() => {
+        res.redirect('/backoffice/listado-eventos');
+      })
+      .catch(err => console.log(err));
+}; 

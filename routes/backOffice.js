@@ -22,4 +22,9 @@ router.get('/listado-entradas-eventos', officeEventController.getListaEntradasEv
 router.get('/creacion-entradas-eventos', officeEventController.getCrearEntradasEventos);
 router.post('/creacion-entrada', officeEventController.postCrearEntrada);
 
+router.get('/entradas-evento/:idEvento', officeEventController.getEditarEntradasEventos);
+router.post('/editar-entrada', officeEventController.postEditarEntrada);
+
+router.post('/eliminar-entrada', officeEventController.postEliminarEntrada);
+
 module.exports = router;
