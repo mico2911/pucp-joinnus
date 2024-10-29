@@ -27,4 +27,8 @@ router.post('/editar-entrada', officeEventController.postEditarEntrada);
 
 router.post('/eliminar-entrada', officeEventController.postEliminarEntrada);
 
+router.get('/categorias', backOfficeController.getListaCategorias);
+router.post('/crear-categoria', backOfficeController.postCrearCategoria);
+router.post('/eliminar-categoria', backOfficeController.postEliminarCategoria);
+
 module.exports = router;

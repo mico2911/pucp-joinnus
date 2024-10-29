@@ -7,6 +7,8 @@
 }
 
 .backoffice-main {
+    min-height: calc(100vh - 58px);
+
     .left-section {
         width: 260px;
         background-color: #F8F9FA;        
@@ -68,5 +70,9 @@
             display: flex;
         }
         
+    }
+
+    .form-crear-categoria {
+        gap: 0 !important;
     }
 }
