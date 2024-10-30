@@ -187,11 +187,16 @@ exports.postCrearEntrada = (req, res, next) => {
       });
 };
 
-// Faltan corregir los 3 ultimos controladores
 exports.getEditarEntradasEventos = async (req, res) => {
     const idEvento = req.params.idEvento;
 
-    Evento.findById(idEvento)
+    Evento.findById(idEvento).populate({
+        path: 'catalogoEntradas',
+        populate: {
+            path: 'tipoEntrada',
+            select: 'nombre'
+        }
+    })
     .then(evento => {
         if (!evento) {
             return res.redirect('/backoffice/listado-entradas-eventos');
@@ -199,7 +204,7 @@ exports.getEditarEntradasEventos = async (req, res) => {
 
         res.render('backoffice/entradas/detalle-entradas-evento', { 
             titulo        : 'Entradas para evento',             
-            tituloSeccion : 'Entradas para el evento',
+            tituloSeccion : 'Entradas para: ' + evento.nombre,
             opcion        : 'entradas',
             evento        : evento            
         })
@@ -211,29 +216,31 @@ exports.getEditarEntradasEventos = async (req, res) => {
 };
 
 exports.postEditarEntrada = async (req, res) => {
-    Evento
-    .find()
-    .then(eventos => {
-        TipoEntrada.find()
-        .then(tiposEntradas => {
-            res.render('backoffice/entradas/crear-entrada-evento', {
-                eventos       : eventos,
-                tiposEntradas : tiposEntradas,
-                titulo        : "Creación entradas", 
-                tituloSeccion : 'Creación de entradas para eventos',
-                opcion        : 'creacionEntrada'
-            });
-        })
-        .catch(err => console.log(err));        
+    const idEvento  = req.body.idEvento;
+    const idEntrada = req.body.idEntrada;
+    const precio    = req.body.precio
+    const cantidad  = req.body.cantidad;
+
+    Evento.findById(idEvento)
+    .then(evento => {
+        return evento.modificarEntrada(idEntrada, precio, cantidad);
+    })
+    .then(result => {
+        res.redirect('/backoffice/listado-entradas-eventos');
     })
     .catch(err => console.log(err));
 };
 
 exports.postEliminarEntrada = (req, res, next) => {
-    const idEvento = req.body.idEvento;
-    Evento.findByIdAndDelete(idEvento)
-      .then(() => {
-        res.redirect('/backoffice/listado-eventos');
-      })
-      .catch(err => console.log(err));
+    const idEvento  = req.body.idEvento;
+    const idEntrada = req.body.idEntrada;
+
+    Evento.findById(idEvento)
+    .then(evento => {
+        return evento.eliminarEntrada(idEntrada);
+    })
+    .then(result => {
+        res.redirect('/backoffice/listado-entradas-eventos');
+    })
+    .catch(err => console.log(err));
 }; 

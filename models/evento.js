@@ -31,4 +31,24 @@ eventoSchema.methods.agregarEntrada = function(tipoEntradaId, precio, cantidadEn
     return this.save();
 };
 
+eventoSchema.methods.modificarEntrada = function(entradaId, precio, cantidadEntradasTotal) {
+    this.catalogoEntradas.forEach(entrada => {        
+        if (entrada.id.toString() === entradaId.toString()) {
+            entrada.precio = precio;
+            entrada.cantidadEntradasTotal = cantidadEntradasTotal;
+        }
+    });
+    
+    return this.save();
+};
+
+eventoSchema.methods.eliminarEntrada = function(entradaId) {
+    const entradasActualizadas = this.catalogoEntradas.filter(entrada => {        
+        return entrada.id.toString() !== entradaId.toString();
+    });
+
+    this.catalogoEntradas = entradasActualizadas;
+    return this.save();
+};
+
 module.exports = mongoose.model('Evento', eventoSchema);

@@ -21,39 +21,49 @@
                 <% if (evento.catalogoEntradas.length > 0) { %>
 
                     <% for (let entrada of evento.catalogoEntradas) { %>
-                        
-                        <form action="/editar-entrada" method="POST">
-                            <input type="hidden" value="<%= evento._id %>" name="idEvento">
-                            <input type="hidden" value="<%= entrada._id %>" name="idTipoEntrada">
 
-                            <div class="form-row">
-                                <div class="col-6">
-                                    <label for="precio">Precio</label>
-                                    <input type="number" name="precio" id="precio" value="<%= entrada.precio %>">
-                                </div>
-        
-                                <div class="col-6">
-                                    <label for="cantidad">Cantidad en venta</label>
-                                    <input type="number" name="cantidad" id="cantidad" value="<%= entrada.cantidadEntradasTotal %>">
-                                </div>
+                        <div class="detalle-entrada-wrapper">
+                            <div class="d-flex mb-3">
+                                <h4 class="col-3 p-0"> <%= entrada.tipoEntrada.nombre %> </h4>
+    
+                                <form action="/backoffice/eliminar-entrada" method="POST">
+                                    <input type="hidden" value="<%= evento._id %>" name="idEvento">
+                                    <input type="hidden" value="<%= entrada._id %>" name="idEntrada">
+                                    <button class="btn p-0">
+                                        <%- include('../../svgs/btnEliminar.ejs') %>
+                                    </button>
+                                </form>
                             </div>
-
-                            <div class="form-row">
-                                <div class="col-6">
-                                    <button class="btn btn-primary w-100" type="submit"> Guardar </button>
+    
+                            <form action="/backoffice/editar-entrada" method="POST">
+                                <input type="hidden" value="<%= evento._id %>" name="idEvento">
+                                <input type="hidden" value="<%= entrada._id %>" name="idEntrada">
+    
+                                <div class="form-row">
+                                    <div class="col-6">
+                                        <label for="precio">Precio</label>
+                                        <input type="number" name="precio" id="precio" value="<%= entrada.precio %>">
+                                    </div>
+            
+                                    <div class="col-6">
+                                        <label for="cantidad">Cantidad en venta</label>
+                                        <input type="number" name="cantidad" id="cantidad" value="<%= entrada.cantidadEntradasTotal %>">
+                                    </div>
                                 </div>
     
-                                <div class="col-6">
-                                    <button class="btn btn-danger w-100" type="submit"> Eliminar </button>
-                                </div>    
-                            </div>                        
-                            
-                        </form>
+                                <div class="form-row">
+                                    <div class="col-6">
+                                        <button class="btn btn-primary w-100 mb-5" type="submit"> Guardar </button>
+                                    </div>  
+                                </div>                        
+                                
+                            </form>
+                        </div>                    
 
                     <% } %> 
                     
                 <% } else { %>
-                    <h4>No hay eventos registrados</h4>
+                    <h4>No hay entradas registradas</h4>
                 <% } %>
             </div>            
         </div>
