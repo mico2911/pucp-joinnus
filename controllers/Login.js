@@ -1,28 +1,41 @@
-// Controlador para iniciar sesión
-const fs = require('fs');
-const path = require('path');
-const usuariosPath = path.join(__dirname, '..', 'data', 'usuarios.json');
-
-// Controlador para manejar el inicio de sesión
-exports.login = async (req, res) => {
-    const { correo, password } = req.body;
-
-    if (correo == 'admi@admi.pe' && password == '1234')  {        
-        return res.redirect('/backoffice/listado-eventos');
+exports.getIngresar = (req, res, next) => {
+    let mensaje = req.flash('error');
+    if (mensaje.length > 0) {
+      mensaje = mensaje[0];
+    } else {
+      mensaje = null;
     }
+    res.render('auth/ingresar', {
+      path: '/ingresar',
+      titulo: 'Ingresar',
+      autenticado: false,
+      mensajeError: mensaje
+    });
+};
 
-    // Verificar si el usuario existe
-    const users = JSON.parse(fs.readFileSync(usuariosPath, 'utf8'));
-    const user = users.find(user => user.correo === correo);
-    if (!user) {
-        return res.status(401).send('Usuario no encontrado.');
-    }
+exports.postIngresar = (req, res, next) => {
+    const correo = req.body.correo;
+    const password = req.body.password;
 
-    // Verificar si la contraseña es correcta
-    const isPasswordCorrect = password == user.password;
-    if (!isPasswordCorrect) {
-        return res.status(401).send('Contraseña incorrecta.');
-    }
-
-    res.redirect('/tienda');
+    Usuario.findOne({ correo: correo })
+    .then(usuario => {
+      if (!usuario) {
+        req.flash('error', 'El correo no está registrado')
+        return res.redirect('/ingresar');
+      }
+      bcrypt.compare(password, usuario.password)
+        .then(hayCoincidencia => {
+          if(hayCoincidencia) {
+            req.session.autenticado = true;
+            req.session.usuario = usuario;
+            return req.session.save(err => {
+              console.log(err);
+              res.redirect('/tienda')
+            })
+          }
+          req.flash('error', 'Las credenciales son invalidas')
+          res.redirect('/ingresar');
+        })
+        .catch(err => console.log(err));
+    })
 };
