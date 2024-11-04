@@ -69,3 +69,20 @@ exports.postRegistrarse = (req, res, next) => {
         console.log(err);
     });
 };
+
+exports.getMiPerfil = (req, res, next) => {
+    var autenticado = req.session.autenticado;
+    var dataUser    = null;
+
+    if (autenticado) {
+        dataUser    = req.session.usuario;
+    }
+
+    res.render('tienda/profile/mi-perfil', {
+        titulo        : 'Mi Perfil',
+        tituloSeccion : 'Información Personal',
+        opcion        : 'infoPersonal',
+        autenticado   : req.session.autenticado,
+        usuario       : dataUser
+    });
+};

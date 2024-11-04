@@ -33,7 +33,11 @@ exports.postIngresar = (req, res, next) => {
             req.session.usuario = usuario;
             return req.session.save(err => {
               console.log(err);
-              res.redirect('/tienda')
+              if (usuario.isAdmin) {
+                res.redirect('/backoffice/listado-eventos')
+              } else {
+                res.redirect('/tienda')
+              }              
             })
           }
           req.flash('error', 'Las credenciales son invalidas')
@@ -41,4 +45,11 @@ exports.postIngresar = (req, res, next) => {
         })
         .catch(err => console.log(err));
     })
+};
+
+exports.postSalir = (req, res, next) => {
+  req.session.destroy(err => {
+    console.log(err);
+    res.redirect('/tienda');
+  });
 };

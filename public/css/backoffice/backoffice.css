@@ -1,6 +1,7 @@
-.header-backoffice {
+.header-profile {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: 58px;
     background-color: #1A171B;
     padding: 0 18px;

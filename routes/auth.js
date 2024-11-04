@@ -7,6 +7,8 @@ const loginController = require('../controllers/Login');
 router.get('/ingresar', loginController.getIngresar);
 router.post('/ingresar', loginController.postIngresar);
 
+router.post('/salir', loginController.postSalir);
+
 router.get('/registrarse', accountController.getRegistrarse);
 router.post('/registrarse', accountController.postRegistrarse);
 

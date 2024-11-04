@@ -1,7 +1,7 @@
 <header class="header-store">
-    <div class="logo-joinnus">
+    <a class="logo-joinnus" href="/tienda">
         <%- include('../svgs/logoJoinnus.ejs') %>
-    </div>
+    </a>
 
     <% if (!autenticado) { %>
         <div class="options-auth">
@@ -15,5 +15,5 @@
                 <img class="img-profile" src="https://graph.facebook.com/1524251321051930/picture?width=150&height=150" alt="userimg">
             </a>
         </div>
-    <% } %>    
+    <% } %> 
 </header>
