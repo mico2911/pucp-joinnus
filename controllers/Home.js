@@ -5,6 +5,13 @@ const Evento = require('../models/evento');
 
 exports.getIndex = (req, res, next) => {
     console.log('Ruta raíz alcanzada');
+    var autenticado = req.session.autenticado;
+    var dataUser    = null;
+
+    if (autenticado) {
+        dataUser    = req.session.usuario;
+    }
+
     Evento
     .find()
     .then(eventos => {
@@ -17,9 +24,11 @@ exports.getIndex = (req, res, next) => {
         });
 
         res.render('tienda/home', {
-            ev     : eventosFormateados,
-            titulo : "Bienvenido a Joinnus", 
-            path   : "/"
+            ev          : eventosFormateados,
+            titulo      : "Bienvenido a Joinnus",
+            autenticado : req.session.autenticado,
+            usuario     : dataUser,
+            path        : "/"
         });
     })
     .catch(err => console.log(err));

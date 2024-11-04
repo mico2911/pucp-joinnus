@@ -41,7 +41,7 @@ exports.postRegistrarse = (req, res, next) => {
       res.redirect('/registrarse');
     }    
 
-    Usuario.findOne({ email: email })
+    Usuario.findOne({ correo: correo })
     .then(usuarioDoc => {
         if (usuarioDoc) {
           req.flash('error', 'Este correo ya se encuentra registrado.')

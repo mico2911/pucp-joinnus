@@ -1,0 +1,18 @@
+.options-account {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 10px;
+
+    h5 {
+        color: #FFF;
+        font-size: 12px;
+    }
+    
+    .img-profile {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+}
+

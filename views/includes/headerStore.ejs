@@ -3,8 +3,17 @@
         <%- include('../svgs/logoJoinnus.ejs') %>
     </div>
 
-    <div class="options-account">
-        <a href="ingresar" class="header-store-btn login-btn" type="button">Iniciar sesión</a>
-        <a href="registrarse" class="header-store-btn register-btn" type="button">Registrarse</a>
-    </div>
+    <% if (!autenticado) { %>
+        <div class="options-auth">
+            <a href="ingresar" class="header-store-btn login-btn" type="button">Iniciar sesión</a>
+            <a href="registrarse" class="header-store-btn register-btn" type="button">Registrarse</a>
+        </div>
+    <% } else { %>
+        <div>
+            <a class="options-account" href="/tienda/miperfil">
+                <h5 class="m-0"> <%= usuario.nombre %> </h5>
+                <img class="img-profile" src="https://graph.facebook.com/1524251321051930/picture?width=150&height=150" alt="userimg">
+            </a>
+        </div>
+    <% } %>    
 </header>

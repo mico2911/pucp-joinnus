@@ -6,6 +6,13 @@ const { format } = require('date-fns');
 exports.getDetalleEventoTienda = async (req, res) => {
     const idEvento = req.params.idEvento;
 
+    var autenticado = req.session.autenticado;
+    var dataUser    = null;
+
+    if (autenticado) {
+        dataUser    = req.session.usuario;
+    }
+
     try {
         Evento.findById(idEvento).populate({
             path: 'catalogoEntradas',
@@ -24,10 +31,12 @@ exports.getDetalleEventoTienda = async (req, res) => {
             const fechaFormateada = format(evento.fecha, 'dd/MM/yyyy');
 
             res.render('tienda/events/detalle-evento', {
-                titulo: evento.nombre,
-                evento: evento,
+                titulo          : evento.nombre,
+                evento          : evento,
+                autenticado     : autenticado,
+                usuario         : dataUser,
                 fechaFormateada : fechaFormateada, 
-                opcion: 'detalleEvento'
+                opcion          : 'detalleEvento'
             })
         })
         .catch(err => {
