@@ -14,4 +14,19 @@ const usuarioSchema = new Schema({
     eventosFavoritos: [{ type: Schema.Types.ObjectId, ref: 'Evento' }]
 });
 
+usuarioSchema.methods.agregarEventoWishlist = function(eventoId) {
+    this.eventosFavoritos.push(eventoId);
+    return this.save();
+};
+
+usuarioSchema.methods.eliminarEventoWishlist = function(eventoId) {    
+    const wishlistActualizado = this.eventosFavoritos.filter(evento => {        
+        return evento.id.toString() !== eventoId.toString();
+    });
+
+    this.eventosFavoritos = wishlistActualizado;
+    
+    return this.save();
+};
+
 module.exports = mongoose.model('Usuarios', usuarioSchema);

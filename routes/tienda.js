@@ -10,4 +10,7 @@ router.get('/detalle-evento/:idEvento', storeEventController.getDetalleEventoTie
 
 router.get('/miperfil', accountController.getMiPerfil);
 
+router.post('/add-to-wishlist', accountController.postAgregarWishlist);
+router.post('/remove-to-wishlist', accountController.postRemoveWishlist);
+
 module.exports = router;

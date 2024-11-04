@@ -86,3 +86,44 @@ exports.getMiPerfil = (req, res, next) => {
         usuario       : dataUser
     });
 };
+
+exports.postAgregarWishlist = (req, res, next) => {
+    const idEvento = req.body.idEvento;
+
+    var autenticado = req.session.autenticado;
+    var dataUser    = null;
+
+    if (autenticado) {
+        dataUser = req.session.usuario;
+
+        Usuario.findById(dataUser._id)
+        .then(usuario => {
+            return usuario.agregarEventoWishlist(idEvento);
+        })
+        .then(result => {
+            console.log(result);
+            res.redirect('/tienda/detalle-evento/' + idEvento);
+        });
+    }    
+};
+
+
+exports.postRemoveWishlist = (req, res, next) => {
+    const idEvento = req.body.idEvento;
+
+    var autenticado = req.session.autenticado;
+    var dataUser    = null;
+
+    if (autenticado) {
+        dataUser = req.session.usuario;
+
+        Usuario.findById(dataUser._id)
+        .then(usuario => {
+            return usuario.eliminarEventoWishlist(idEvento);
+        })
+        .then(result => {
+            console.log(result);
+            res.redirect('/tienda/detalle-evento/' + idEvento);
+        });
+    }    
+};
