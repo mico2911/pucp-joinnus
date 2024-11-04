@@ -1,3 +1,6 @@
+const Usuario = require('../models/usuario')
+const bcrypt = require('bcryptjs');
+
 exports.getIngresar = (req, res, next) => {
     let mensaje = req.flash('error');
     if (mensaje.length > 0) {

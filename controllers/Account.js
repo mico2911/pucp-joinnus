@@ -1,3 +1,7 @@
+const eventsHelper = require ('../scripts/helpers/eventsHelper');
+const Usuario = require('../models/usuario')
+const bcrypt = require('bcryptjs');
+
 exports.getRegistrarse = (req, res, next) => {
     const citiesOptions = eventsHelper.getCitiesOptions();
 
