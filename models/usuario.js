@@ -20,8 +20,8 @@ usuarioSchema.methods.agregarEventoWishlist = function(eventoId) {
 };
 
 usuarioSchema.methods.eliminarEventoWishlist = function(eventoId) {    
-    const wishlistActualizado = this.eventosFavoritos.filter(evento => {        
-        return evento.id.toString() !== eventoId.toString();
+    const wishlistActualizado = this.eventosFavoritos.filter(idEvento => {        
+        return idEvento.toString() !== eventoId.toString();
     });
 
     this.eventosFavoritos = wishlistActualizado;
