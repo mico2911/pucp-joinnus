@@ -14,11 +14,97 @@
                 <%- include('../../includes/sidebarStore.ejs') %>
             </div>
         </div>
-        <div class="rigth-section">
+        <div class="right-section">
             <div class="content-wrapper">
                 <h1 class="title-section"><%= tituloSeccion %></h1>
 
-                
+                <div class="form-my-account col-12">            
+                    <form class="profile-form mb-4" action="/agregar-foto"  method="POST">
+                        <div class="d-flex justify-content-between">
+                            <h2 class="subtitle-section"> Foto de perfil </h2>
+
+                            <button type="submit" class="btn btn-dark rounded-xl account-form-btn"> Guardar </button>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-12">
+                                <input type="text" name="foto" id="foto" placeholder="URL de Foto">
+                            </div>
+                        </div>                    
+                    </form>
+
+                    <form class="profile-form mb-4" action="/editar-info-personal"  method="POST">
+                        <div class="d-flex justify-content-between">
+                            <h2 class="subtitle-section"> Información personal </h2>
+
+                            <button type="submit" class="btn btn-dark rounded-xl account-form-btn"> Guardar </button>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-6">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" name="nombre" id="nombre" placeholder="Nombre">
+                            </div>
+    
+                            <div class="col-6">
+                                <label for="nombre">Apellido</label>
+                                <input type="text" name="apellido" id="apellido" placeholder="Apellido">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-6">
+                                <label for="nombre">Genero</label>
+                                <input type="text" name="genero" id="genero" placeholder="Genero">
+                            </div>
+    
+                            <div class="col-6">
+                                <label for="nombre">Ciudad</label>
+                                <input type="text" name="ciudad" id="ciudad" placeholder="Ciudad">
+                            </div>
+                        </div>
+                    </form>
+
+                    <form class="profile-form mb-4" action="/editar-info-complementaria"  method="POST">
+                        <div class="d-flex justify-content-between">
+                            <h2 class="subtitle-section"> Información complementaria </h2>
+
+                            <button type="submit" class="btn btn-dark rounded-xl account-form-btn"> Guardar </button>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-6">
+                                <label for="nombre">DNI</label>
+                                <input type="text" name="dni" id="dni" placeholder="DNI">
+                            </div>
+    
+                            <div class="col-6">
+                                <label for="nombre">Fecha de nacimiento</label>
+                                <input type="text" name="fechaNacimiento" id="fechaNacimiento" placeholder="fechaNacimiento">
+                            </div>
+                        </div>                    
+                    </form>
+
+                    <form class="profile-form mb-4" action="/guardar-info-contacto"  method="POST">
+                        <div class="d-flex justify-content-between">
+                            <h2 class="subtitle-section"> Información de contacto </h2>
+
+                            <button type="submit" class="btn btn-dark rounded-xl account-form-btn"> Guardar </button>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-6">
+                                <label for="nombre">Correo</label>
+                                <input type="text" name="correo" id="correo" placeholder="Correo electrónico">
+                            </div>
+    
+                            <div class="col-6">
+                                <label for="nombre">Celular</label>
+                                <input type="text" name="celular" id="celular" placeholder="Número de celular">
+                            </div>
+                        </div>                    
+                    </form>
+                </div>
             </div>            
         </div>
     </main>
