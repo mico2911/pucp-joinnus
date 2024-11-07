@@ -1,0 +1,47 @@
+<%- include('../../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/sidebar.css">    
+    <link rel="stylesheet" href="/css/backoffice/backoffice.css">
+</head>
+<body class="backoffice-body">
+    <%- include('../../includes/header.ejs') %>
+
+    <main class="backoffice-main d-flex">
+        <div class="left-section">
+            <div class="user-section">
+                <%= usuario.nombre %> <%= usuario.apellido %>
+            </div>
+            <div class="sidebar-section">
+                <%- include('../../includes/sidebarStore.ejs') %>
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="content-wrapper">
+                <h1 class="title-section"><%= tituloSeccion %></h1>
+
+                <div class="col-12">            
+                    <form class="profile-form mb-4" action="/perfil/agregar-foto"  method="POST">
+                        <input type="hidden" value="<%= usuario._id %>" name="idUsuario">
+                        <div class="d-flex justify-content-between">
+                            <h2 class="subtitle-section"> Cambio de contraseña </h2>
+
+                            <button type="submit" class="btn btn-dark rounded-xl account-form-btn"> Cambiar Contraseña </button>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-6">
+                                <label for="actual">Actual contraseña</label>
+                                <input type="text" name="actual" id="actual" placeholder="Ingrese su contraseña actual">
+                            </div>
+    
+                            <div class="col-6">
+                                <label for="nueva">Nueva contraseña</label>
+                                <input type="text" name="nueva" id="nueva" placeholder="Ingrese su nueva contraseña">
+                            </div>
+                        </div>                    
+                    </form>
+                </div>
+            </div>            
+        </div>
+    </main>
+</body>
+</html>

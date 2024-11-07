@@ -91,6 +91,23 @@ exports.getMiPerfil = (req, res, next) => {
     });
 };
 
+exports.getSeguridadPage = (req, res, next) => {
+    var autenticado = req.session.autenticado;
+    var dataUser    = null;
+
+    if (autenticado) {
+        dataUser    = req.session.usuario;
+    }
+
+    res.render('tienda/profile/seguridad-page', {
+        titulo        : 'Mi Perfil',
+        tituloSeccion : 'Seguridad y contraseña',
+        opcion        : 'seguridad',
+        autenticado   : req.session.autenticado,
+        usuario       : dataUser
+    });
+};
+
 exports.postAgregarWishlist = (req, res, next) => {
     const idEvento = req.body.idEvento;
 
