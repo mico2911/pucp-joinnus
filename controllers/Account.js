@@ -71,6 +71,8 @@ exports.postRegistrarse = (req, res, next) => {
 };
 
 exports.getMiPerfil = (req, res, next) => {
+    const citiesOptions = eventsHelper.getCitiesOptions();
+
     var autenticado = req.session.autenticado;
     var dataUser    = null;
 
@@ -83,6 +85,8 @@ exports.getMiPerfil = (req, res, next) => {
         tituloSeccion : 'Información de mi cuenta',
         opcion        : 'infoPersonal',
         autenticado   : req.session.autenticado,
+        citiesOptions : citiesOptions,
+        editingEvent  : false,
         usuario       : dataUser
     });
 };

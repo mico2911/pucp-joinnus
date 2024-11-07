@@ -11,7 +11,8 @@ const MONGODB_URI = 'mongodb+srv://mactperu2911:vo7OzZA73rx5LSjX@cluster0.1vyjt.
 
 const backOfficeRoutes = require('./routes/backOffice');
 const tiendaRoutes = require('./routes/tienda');
-const authRoutes = require('./routes/auth')
+const authRoutes = require('./routes/auth');
+const perfilRoutes = require('./routes/perfil');
 
 const errorController = require('./controllers/PageNotFound');
 
@@ -33,6 +34,7 @@ app.use(flash());
 
 app.use('/backoffice', backOfficeRoutes);
 app.use('/tienda', tiendaRoutes);
+app.use('/perfil', perfilRoutes);
 app.use(authRoutes);
 
 app.use(errorController.get404);

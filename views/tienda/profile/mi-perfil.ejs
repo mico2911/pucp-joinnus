@@ -19,7 +19,8 @@
                 <h1 class="title-section"><%= tituloSeccion %></h1>
 
                 <div class="form-my-account col-12">            
-                    <form class="profile-form mb-4" action="/agregar-foto"  method="POST">
+                    <form class="profile-form mb-4" action="/perfil/agregar-foto"  method="POST">
+                        <input type="hidden" value="<%= usuario._id %>" name="idUsuario">
                         <div class="d-flex justify-content-between">
                             <h2 class="subtitle-section"> Foto de perfil </h2>
 
@@ -33,7 +34,8 @@
                         </div>                    
                     </form>
 
-                    <form class="profile-form mb-4" action="/editar-info-personal"  method="POST">
+                    <form class="profile-form mb-4" action="/perfil/editar-info-personal"  method="POST">
+                        <input type="hidden" value="<%= usuario._id %>" name="idUsuario">
                         <div class="d-flex justify-content-between">
                             <h2 class="subtitle-section"> Información personal </h2>
 
@@ -43,29 +45,33 @@
                         <div class="form-row">
                             <div class="col-6">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" name="nombre" id="nombre" placeholder="Nombre">
+                                <input type="text" name="nombre" id="nombre" placeholder="Nombre" value="<%= usuario.nombre %>">
                             </div>
     
                             <div class="col-6">
                                 <label for="nombre">Apellido</label>
-                                <input type="text" name="apellido" id="apellido" placeholder="Apellido">
+                                <input type="text" name="apellido" id="apellido" placeholder="Apellido" value="<%= usuario.apellido %>">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="col-6">
                                 <label for="nombre">Genero</label>
-                                <input type="text" name="genero" id="genero" placeholder="Genero">
+                                <select name="genero" id="genero">
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                </select>
                             </div>
     
                             <div class="col-6">
                                 <label for="nombre">Ciudad</label>
-                                <input type="text" name="ciudad" id="ciudad" placeholder="Ciudad">
+                                <%- include('../../includes/opcionesCiudades.ejs') %>
                             </div>
                         </div>
                     </form>
 
-                    <form class="profile-form mb-4" action="/editar-info-complementaria"  method="POST">
+                    <form class="profile-form mb-4" action="/perfil/editar-info-complementaria"  method="POST">
+                        <input type="hidden" value="<%= usuario._id %>" name="idUsuario">
                         <div class="d-flex justify-content-between">
                             <h2 class="subtitle-section"> Información complementaria </h2>
 
@@ -80,12 +86,13 @@
     
                             <div class="col-6">
                                 <label for="nombre">Fecha de nacimiento</label>
-                                <input type="text" name="fechaNacimiento" id="fechaNacimiento" placeholder="fechaNacimiento">
+                                <input type="date" name="fechaNacimiento" id="fechaNacimiento">
                             </div>
                         </div>                    
                     </form>
 
-                    <form class="profile-form mb-4" action="/guardar-info-contacto"  method="POST">
+                    <form class="profile-form mb-4" action="/perfil/guardar-info-contacto"  method="POST">
+                        <input type="hidden" value="<%= usuario._id %>" name="idUsuario">
                         <div class="d-flex justify-content-between">
                             <h2 class="subtitle-section"> Información de contacto </h2>
 
@@ -95,7 +102,7 @@
                         <div class="form-row">
                             <div class="col-6">
                                 <label for="nombre">Correo</label>
-                                <input type="text" name="correo" id="correo" placeholder="Correo electrónico">
+                                <input type="text" name="correo" id="correo" placeholder="Correo electrónico" value="<%= usuario.correo %>">
                             </div>
     
                             <div class="col-6">

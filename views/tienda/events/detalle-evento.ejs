@@ -16,7 +16,7 @@
 
                 <% if (autenticado) { %>
                     <div class="wishlist-icon">
-                        <form action="/tienda/<% if (isWishlisted) { %>remove-to-wishlist<% } else { %>add-to-wishlist<% } %>" method="POST">
+                        <form action="/perfil/<% if (isWishlisted) { %>remove-to-wishlist<% } else { %>add-to-wishlist<% } %>" method="POST">
                             <input type="hidden" name="idEvento" value="<%= evento._id %>">
                             <button class="btn-wishlist">
                                 <% if (isWishlisted) { %>
