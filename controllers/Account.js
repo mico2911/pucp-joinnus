@@ -108,6 +108,39 @@ exports.getSeguridadPage = (req, res, next) => {
     });
 };
 
+exports.getWishlistPage = (req, res, next) => {
+    var autenticado = req.session.autenticado;
+    var dataUser    = null;
+
+    if (autenticado) {
+        dataUser    = req.session.usuario;
+    }
+
+    Usuario.findById(dataUser._id)
+    .populate('eventosFavoritos', 'nombre urlImagen')
+    .then(usuario => {
+
+        var eventosFavoritos    = [];
+        var hayEventosFavoritos = false;
+
+
+        if (usuario.eventosFavoritos && usuario.eventosFavoritos.length > 0) {
+            eventosFavoritos    = usuario.eventosFavoritos;
+            hayEventosFavoritos = true;
+        }                    
+
+        return res.render('tienda/profile/wishlist-page', {
+            titulo        : 'Mi Perfil',
+            tituloSeccion : 'Eventos favoritos',
+            opcion        : 'wishlist',
+            autenticado   : req.session.autenticado,
+            usuario       : dataUser,
+            hayEventosFavoritos : hayEventosFavoritos,
+            eventosFavoritos    : eventosFavoritos
+        });
+    })
+};
+
 exports.postAgregarWishlist = (req, res, next) => {
     const idEvento = req.body.idEvento;
 
@@ -130,7 +163,8 @@ exports.postAgregarWishlist = (req, res, next) => {
 
 
 exports.postRemoveWishlist = (req, res, next) => {
-    const idEvento = req.body.idEvento;
+    const idEvento      = req.body.idEvento;
+    const isFromProfile = req.body.isFromProfile;
 
     var autenticado = req.session.autenticado;
     var dataUser    = null;
@@ -144,7 +178,11 @@ exports.postRemoveWishlist = (req, res, next) => {
         })
         .then(result => {
             console.log(result);
-            res.redirect('/tienda/detalle-evento/' + idEvento);
+            if (isFromProfile) {
+                res.redirect('/perfil/wishlist/');
+            } else {
+                res.redirect('/tienda/detalle-evento/' + idEvento);
+            }            
         });
     }    
 };

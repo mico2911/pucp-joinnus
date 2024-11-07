@@ -5,6 +5,7 @@ const accountController = require('../controllers/Account');
 
 router.get('/', accountController.getMiPerfil);
 router.get('/seguridad', accountController.getSeguridadPage);
+router.get('/wishlist', accountController.getWishlistPage);
 
 router.post('/add-to-wishlist', accountController.postAgregarWishlist);
 router.post('/remove-to-wishlist', accountController.postRemoveWishlist);
