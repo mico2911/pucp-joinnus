@@ -80,7 +80,7 @@ exports.getMiPerfil = (req, res, next) => {
 
     res.render('tienda/profile/mi-perfil', {
         titulo        : 'Mi Perfil',
-        tituloSeccion : 'Información Personal',
+        tituloSeccion : 'Información de mi cuenta',
         opcion        : 'infoPersonal',
         autenticado   : req.session.autenticado,
         usuario       : dataUser
