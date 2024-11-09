@@ -5,6 +5,8 @@ const usuarioSchema = new Schema({
     nombre: { type: String, required: true },
     apellido: { type: String, required: true },
     isAdmin: { type: Boolean, default: false },
+    tokenReinicio: String,
+    expiracionTokenReinicio: Date,
     dni: { type: String, required: false },
     fechaNacimiento: { type: String, required: false },
     genero: { type: String, required: false },

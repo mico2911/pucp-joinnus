@@ -76,7 +76,7 @@ exports.postReinicio = (req, res, next) => {
       return res.redirect('/reinicio');
     }
     const token = buffer.toString('hex');
-    Usuario.findOne({ email: req.body.correo })
+    Usuario.findOne({ correo: req.body.correo })
       .then(usuario => {
         if (!usuario) {
           req.flash('error', 'No se encontro usuario con dicho correo');
@@ -87,7 +87,7 @@ exports.postReinicio = (req, res, next) => {
         return usuario.save();
       })
       .then(result => {
-        res.redirect('/');
+        res.redirect('/tienda');
         /*transporter.sendMail({
           to: req.body.email,
           from: 'jcabelloc@itana.pe',
@@ -102,4 +102,57 @@ exports.postReinicio = (req, res, next) => {
         console.log(err);
       });
   });
+};
+
+exports.getNuevoPassword = (req, res, next) => {
+  const token = req.params.token;
+  Usuario.findOne({ tokenReinicio: token, expiracionTokenReinicio: { $gt: Date.now() } })
+    .then(usuario => {
+      let mensaje = req.flash('error');
+      if (mensaje.length > 0) {
+        mensaje = mensaje[0];
+      } else {
+        mensaje = null;
+      }
+      res.render('auth/reinicio-password', {
+        path: '/reinicio-password',
+        titulo: 'Nueva Contraseña',
+        mensajeError: mensaje,
+        nombreUsuario: usuario.nombre,
+        idUsuario: usuario._id.toString(),
+        tokenPassword: token
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+exports.postNuevoPassword = (req, res, next) => {
+  const nuevoPassword = req.body.password;
+  const idUsuario = req.body.idUsuario;
+  const tokenPassword = req.body.tokenPassword;
+  let usuarioParaActualizar;
+
+  Usuario.findOne({
+    tokenReinicio: tokenPassword,
+    expiracionTokenReinicio: { $gt: Date.now() },
+    _id: idUsuario
+  })
+    .then(usuario => {
+      usuarioParaActualizar = usuario;
+      return bcrypt.hash(nuevoPassword, 12);
+    })
+    .then(hashedPassword => {
+      usuarioParaActualizar.password = hashedPassword;
+      usuarioParaActualizar.tokenReinicio = undefined;
+      usuarioParaActualizar.expiracionTokenReinicio = undefined;
+      return usuarioParaActualizar.save();
+    })
+    .then(result => {
+      res.redirect('/ingresar');
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
