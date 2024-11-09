@@ -75,6 +75,7 @@
                         </div>
                     </div>
                     
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <button class="btn btn-primary" type="submit"><% if (modoEdicion) { %>Actualizar Evento<% } else { %>Crear Evento<% } %></button>
                 </form>                
             </div>            

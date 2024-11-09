@@ -32,6 +32,7 @@
                                         <form class="mb-4" action="/perfil/remove-to-wishlist"  method="POST">
                                             <input type="hidden" name="idEvento" value="<%= eveFav._id %>">
                                             <input type="hidden" name="isFromProfile" value="true">
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                             <button type="submit" class="btn btn-dark rounded-xl account-form-btn"> Eliminar de favoritos </button>
                                         </form>
                                     </div>

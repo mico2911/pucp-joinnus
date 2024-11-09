@@ -1,6 +1,7 @@
 const express    = require('express');
 const path       = require('path');
 const bodyParser = require('body-parser');
+const csrf       = require('csurf');
 const flash      = require('connect-flash');
 
 const mongoose     = require('mongoose');
@@ -23,6 +24,8 @@ const store = new MongoDBStore({
     collection: 'sessions'
 });
 
+const csrfProtection = csrf();
+
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
@@ -30,7 +33,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'algo muy secreto', resave: false, saveUninitialized: false, store: store }));
 
+app.use(csrfProtection);
 app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.autenticado = req.session.autenticado;
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
 
 app.use('/backoffice', backOfficeRoutes);
 app.use('/tienda', tiendaRoutes);
