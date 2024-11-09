@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const isAuth = require('../middleware/is-auth');
 
 const accountController = require('../controllers/Account');
 
-router.get('/', accountController.getMiPerfil);
-router.get('/seguridad', accountController.getSeguridadPage);
-router.get('/wishlist', accountController.getWishlistPage);
+router.get('/', isAuth, accountController.getMiPerfil);
+router.get('/seguridad', isAuth, accountController.getSeguridadPage);
+router.get('/wishlist', isAuth, accountController.getWishlistPage);
 
-router.post('/add-to-wishlist', accountController.postAgregarWishlist);
-router.post('/remove-to-wishlist', accountController.postRemoveWishlist);
+router.post('/add-to-wishlist', isAuth, accountController.postAgregarWishlist);
+router.post('/remove-to-wishlist', isAuth, accountController.postRemoveWishlist);
 
 module.exports = router;
