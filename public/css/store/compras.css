@@ -1,0 +1,66 @@
+.compra-body {
+    background-color: #FFF;
+}
+
+.detalle-compra-wrapper {
+    background-color: #E4EDF5;
+    min-height: calc(100vh - 58px);
+    color: #031425;
+    font-family: Poppins;
+}
+
+.container {
+    max-width: 1140px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.mb-80 {
+    margin-bottom: 80px;
+}
+
+.header-btns {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-jnns-white {
+    background-color: #F2F6FA;
+}
+
+.circle {
+    background: radial-gradient(ellipse at center, #E4EDF5 0%, #E4EDF5 40%, transparent 30%);
+    background-size: 6rem 6rem;
+    height: 6rem;
+    background-repeat: repeat-x;
+    background-position: 3rem center;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+}
+
+.-top-circle {
+    top: -3rem;
+}
+
+.-bottom-circle {
+    bottom: -3rem;
+}
+
+.resume-detail {
+    background-color: #FFF;
+    padding: 60px 32px;
+
+    .title {
+        font-weight: 800;
+        line-height: 51px;
+        text-align: center;
+        font-size: 34px;
+        padding: 8px 0px 24px 0px;
+        margin-bottom: 24px;
+    }
+}

@@ -55,9 +55,9 @@
                     <div class="p-3"><h5 class="mb-0"><b class="text-dark">Entradas</b></h5></div>
                 </div>
                 
-                <form action="/store/realizar-compra" method="POST">
+                <form action="/tienda/realizar-compra" method="POST">
                     <input type="hidden" value="<%= evento._id %>" name="idEvento">
-                    <input type="hidden" value="" name="idUser">
+                    <input type="hidden" value="<%= usuario._id %>" name="idUser">
                     
                     <% if (evento.catalogoEntradas.length > 0) { %>
                         <% for (let entrada of evento.catalogoEntradas) { %>

@@ -1,1 +1,104 @@
+const Compra      = require('../models/compra');
+const Entrada     = require('../models/entrada');
+const TipoEntrada = require('../models/tipoEntrada');
+
 // Controlador para la compra
+exports.postRealizarCompra = async (req, res, next) => {
+    const idEvento  = req.body.idEvento;
+    const idUser    = req.body.idUser;
+
+    let entradas = {};
+
+    Object.keys(req.body).forEach(key => {
+        if (key.startsWith('tipoEntrada-')) {
+            const id = key.replace('tipoEntrada-', '');
+            if (!entradas[id]) {
+                entradas[id] = {};
+            }
+            entradas[id].tipoEntrada = req.body[key];
+        }
+
+        if (key.startsWith('qtyEntrada-')) {
+            const id = key.replace('qtyEntrada-', '');
+            if (!entradas[id]) {
+                entradas[id] = {};
+            }
+            entradas[id].qtyEntrada = req.body[key];
+        }
+
+        if (key.startsWith('precioEntrada-')) {
+            const id = key.replace('precioEntrada-', '');
+            if (!entradas[id]) {
+                entradas[id] = {};
+            }
+            entradas[id].precioEntrada = req.body[key];
+        }
+    });
+
+    const entradasArray = Object.keys(entradas).map(id => ({
+        tipoEntradaId: entradas[id].tipoEntrada,
+        qtyEntrada: parseInt(entradas[id].qtyEntrada),
+        precioEntrada: parseFloat(entradas[id].precioEntrada)
+    }));
+
+    let totalCompra = 0;
+    const entradasGuardadas = [];
+
+    for (let entradaData of entradasArray) {
+        // Encuentra el tipo de entrada
+        const tipoEntrada = await TipoEntrada.findById(entradaData.tipoEntradaId);
+
+        if (!tipoEntrada) {
+            return res.status(400).json({ message: 'Tipo de entrada no encontrado' });
+        }
+
+        const nuevaEntrada = new Entrada({
+            evento: idEvento,
+            tipoEntrada: tipoEntrada._id,
+            precio: entradaData.precioEntrada,
+            cantidad: entradaData.qtyEntrada
+        });
+
+        const entradaGuardada = await nuevaEntrada.save();
+        entradasGuardadas.push(entradaGuardada._id);
+
+        totalCompra += entradaData.precioEntrada * entradaData.qtyEntrada;
+    }
+
+    const nuevaCompra = new Compra({
+        usuario: idUser,
+        entradas: entradasGuardadas,
+        total: totalCompra
+    });
+
+    // Guardamos la compra
+    try {
+        const compraGuardada = await nuevaCompra.save();
+        console.log('Compra guardada:', compraGuardada);
+        // Redirigimos al detalle de la compra
+        res.redirect(`/tienda/detalle-compra/${compraGuardada._id}`);
+    } catch (error) {
+        console.error('Error al guardar la compra:', error);
+        res.status(500).json({ message: 'Error al procesar la compra' });
+    }
+};
+
+exports.getDetalleCompra = (req, res, next) => {
+    const idCompra = req.params.idCompra;
+
+    console.log(idCompra);
+
+    var autenticado  = req.session.autenticado;
+    var dataUser     = null;
+
+    if (autenticado) {
+        dataUser    = req.session.usuario;
+    }
+
+    res.render('tienda/compra/resumen-compra', {
+        titulo          : 'Detalle de compra',
+        autenticado     : autenticado,
+        usuario         : dataUser,
+        idCompra        : idCompra
+    })
+};
