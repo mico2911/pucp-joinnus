@@ -57,7 +57,6 @@
                 
                 <form action="/tienda/realizar-compra" method="POST">
                     <input type="hidden" value="<%= evento._id %>" name="idEvento">
-                    <input type="hidden" value="<%= usuario._id %>" name="idUser">
                     
                     <% if (evento.catalogoEntradas.length > 0) { %>
                         <% for (let entrada of evento.catalogoEntradas) { %>
@@ -67,6 +66,7 @@
                         <% if (!autenticado) { %>
                             <h6>Necesita iniciar sesión para poder comprar entradas. </h6>
                         <% } else { %>
+                            <input type="hidden" value="<%= usuario._id %>" name="idUser">
                             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                             <button class="btn btn-danger">Comprar</button>
                         <% } %> 

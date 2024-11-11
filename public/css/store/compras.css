@@ -21,9 +21,29 @@
     margin-bottom: 80px;
 }
 
+.pt-50 {
+    padding-top: 50px;
+}
+.pb-50 {
+    padding-bottom: 50px;
+}
+
 .header-btns {
     display: flex;
     gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    padding: 10px 0px;
+}
+
+.btn-single {
+    color: #031425;
+    width: 170px;
+    height: 40px;
+    font-weight: 600;
+    line-height: 24px;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -63,4 +83,64 @@
         padding: 8px 0px 24px 0px;
         margin-bottom: 24px;
     }
+}
+
+.detail-event {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    .img-event {
+        height: 96px;
+        width: 168px;
+        border-radius: 8px;
+    }
+
+    .title-event {
+        font-weight: 700;
+        line-height: 36px;
+        font-size: 24px;
+        color: #00B38E;
+        text-align: start;
+    }   
+}
+
+.grid-cols-2 {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.padding-top-bottom-20 {
+    padding: 20px 0px 20px 0px;
+}
+
+.line-division {
+    border: 0;
+    border-top: 2px solid #C9DAEC;
+    margin: 10px 0 30px 0;
+}
+
+.subtitle-summary {
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 36px;
+    color: #031425;
+}
+
+.resumen-entrada-wrapper {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 3fr 7fr 2fr;
+}
+
+.ticket,
+.data-payment {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;            
+}
+
+.name {
+    font-weight: 500;
 }
