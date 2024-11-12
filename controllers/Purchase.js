@@ -86,8 +86,6 @@ exports.postRealizarCompra = async (req, res, next) => {
 exports.getDetalleCompra = (req, res, next) => {
     const idCompra = req.params.idCompra;
 
-    console.log(idCompra);
-
     var autenticado  = req.session.autenticado;
     var dataUser     = null;
 
@@ -117,6 +115,51 @@ exports.getDetalleCompra = (req, res, next) => {
         const evento = compra.entradas[0].evento;
         
         res.render('tienda/compra/resumen-compra', {
+            titulo      : 'Detalle de compra',
+            autenticado : autenticado,
+            usuario     : dataUser,
+            idCompra    : idCompra,
+            compra      : compra,
+            evento      : evento
+        })
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+
+exports.getDetalleEntradasCompra = (req, res, next) => {
+    const idCompra = req.params.idCompra;
+
+    var autenticado  = req.session.autenticado;
+    var dataUser     = null;
+
+    if (autenticado) {
+        dataUser    = req.session.usuario;
+    }
+
+    Compra.findById(idCompra)
+    .populate({
+        path: 'entradas',
+        populate: [
+            {
+                path: 'evento',
+                select: 'nombre fecha hora urlImagen'
+            },
+            {
+                path: 'tipoEntrada',  // Poblamos el tipo de entrada
+                select: 'nombre'     // Seleccionamos el nombre del tipo de entrada
+            }
+        ]
+    })
+    .then (compra => {
+        if (!compra) {
+            return res.status(404).send('Compra no encontrada');
+        }
+
+        const evento = compra.entradas[0].evento;
+        
+        res.render('tienda/compra/detalle-entradas', {
             titulo      : 'Detalle de compra',
             autenticado : autenticado,
             usuario     : dataUser,

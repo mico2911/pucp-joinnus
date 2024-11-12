@@ -10,5 +10,6 @@ router.get('/detalle-evento/:idEvento', storeEventController.getDetalleEventoTie
 
 router.post('/realizar-compra', purchaseController.postRealizarCompra);
 router.get('/detalle-compra/:idCompra', purchaseController.getDetalleCompra);
+router.get('/entradas/:idCompra', purchaseController.getDetalleEntradasCompra);
 
 module.exports = router;

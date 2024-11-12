@@ -144,3 +144,86 @@
 .name {
     font-weight: 500;
 }
+
+.header-entrada {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    .title {
+        font-weight: 800;
+        line-height: 51px;
+        text-align: center;
+        font-size: 34px;        
+    }
+
+    .btn-accept {
+        background-color: #42A692;
+        color: #FFF;
+        font-weight: 500;
+        border: 0;
+        height: 34px;
+        padding: 6px 30px;
+        border-radius: 50px;
+    }
+}
+
+.entradas-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.entrada-details {
+    display: flex;
+    padding: 10px;
+}
+
+.entrada-wrapper {
+    background-color: #FFF;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    padding: 15px 10px;    
+
+    .left-entrada{ 
+        display: flex;
+        flex-flow: column;
+        gap: 20px;
+        padding: 10px 30px;
+        border-right: 4px solid #E4EDF5;
+
+        .logo {
+            width: 113px;
+            height: 32px;
+        }
+    
+        .qrcode {
+            width: 147px;
+            height: 153px;
+        }
+
+        .left-event-name{
+            width: 147px;
+        }
+    }
+    
+    .right-entrada {
+        padding: 10px 30px;
+        width: 100%;
+
+        .right-event-name {
+            font-size: 30px;
+            border: 8px solid #000;
+            border-left: 0;
+            border-right: 0;
+            padding: 10px 0;
+        }
+
+        .entrada-data {
+            font-weight: 600;
+            border-bottom: 2px solid #000;
+        }
+    }
+}
