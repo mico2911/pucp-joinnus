@@ -15,7 +15,9 @@
                     <b style="font-size: 14px; font-weight: 700; line-height: normal;">S/ <%= entrada.precio %> </b>
                 </div>
                 <div class="col-auto text-right ">
-                    <input type="number">
+                    <input type="hidden" name="tipoEntrada-<%= entrada.tipoEntrada._id %>" value="<%= entrada.tipoEntrada._id %>">
+                    <input type="hidden" name="precioEntrada-<%= entrada.tipoEntrada._id %>" value="<%= entrada.precio %>">
+                    <input type="number" name="qtyEntrada-<%= entrada.tipoEntrada._id %>">
                 </div>
             </div>
         </div>
