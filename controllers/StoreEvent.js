@@ -75,3 +75,27 @@ exports.getDetalleEventoTienda = async (req, res) => {
         console.log(e);
     }
 }
+
+exports.getListadoEventos = async (req, res) => {
+    const searchTerm = req.query.searchTerm || '';
+
+    Evento
+    .find()
+    .then(eventos => {
+
+        const eventosFormateados = eventos.map(evento => {
+            const fechaFormateada = format(evento.fecha, 'dd/MM/yyyy');
+            return {
+                ...evento.toObject(),
+                fecha: fechaFormateada
+            };
+        });
+
+        res.render('tienda/events/listado-eventos', {
+            eventos       : eventosFormateados,
+            titulo        : "Encuentra eventos", 
+            opcion        : 'listadoEventos'
+        });
+    })
+    .catch(err => console.log(err));
+}
