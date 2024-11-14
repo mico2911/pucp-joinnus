@@ -35,8 +35,11 @@
 .container-section {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
+.search-section,
 .principal-events {
     padding-left: 15px;
     padding-right: 15px;
@@ -50,6 +53,17 @@
         font-weight: 700;
         line-height: 1.2;
         color: #1A171B;
+    }
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+
+    .btn-search {
+        color: #fff;
+        background-color: #42a692;
+        border: 1px solid #42a692;
     }
 }
 

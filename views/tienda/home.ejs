@@ -12,6 +12,22 @@
 
 
         <div class="container-section">
+            <div class="search-section w-100 mt-4">
+                <div>
+                    <form action="/buscar-eventos" class="search-form" method="POST">
+                        <div class="col-9 p-0">
+                            <input type="text" class="w-100 h-100" name="searchTerm" placeholder="Encuentra los mejores eventos">
+                        </div>
+                        <div class="col-1 p-0">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button class="btn btn-search">
+                                <%- include('../svgs/btnBuscar.ejs') %>
+                            </button>
+                        </div>                                                                
+                    </form>
+                </div>
+            </div>
+            
             <div class="principal-events mt-4">
                 <h1 class="subtitle-home"> Eventos destacados </h1>
                     <% if (ev.length > 0) { %>
