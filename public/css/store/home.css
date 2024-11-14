@@ -39,6 +39,7 @@
     align-items: center;
 }
 
+.filter-section,
 .search-section,
 .principal-events {
     padding-left: 15px;

@@ -1,7 +1,8 @@
 // Controlador para ver el detalle de un evento desde la tienda
-const Evento      = require('../models/evento');
-const Usuario     = require('../models/usuario');
-const TipoEntrada = require('../models/tipoEntrada');
+const Evento       = require('../models/evento');
+const Usuario      = require('../models/usuario');
+const Categoria    = require('../models/categoria');
+const eventsHelper = require ('../scripts/helpers/eventsHelper');
 const { format } = require('date-fns');
 
 exports.getDetalleEventoTienda = async (req, res) => {
@@ -78,6 +79,8 @@ exports.getDetalleEventoTienda = async (req, res) => {
 
 exports.getListadoEventos = async (req, res) => {
     const searchTerm = req.query.searchTerm || '';
+    const categorias = await Categoria.find();
+    const citiesOptions = eventsHelper.getCitiesOptions();
 
     Evento
     .find()
@@ -93,6 +96,9 @@ exports.getListadoEventos = async (req, res) => {
 
         res.render('tienda/events/listado-eventos', {
             eventos       : eventosFormateados,
+            categorias    : categorias,
+            citiesOptions : citiesOptions,
+            modoEdicion   : false,
             titulo        : "Encuentra eventos", 
             opcion        : 'listadoEventos'
         });

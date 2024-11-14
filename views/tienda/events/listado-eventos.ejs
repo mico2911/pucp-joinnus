@@ -1,14 +1,70 @@
 <%- include('../../includes/head.ejs') %>
     <link rel="stylesheet" href="/css/store/general.css">
     <link rel="stylesheet" href="/css/store/home.css">
+    <link rel="stylesheet" href="/css/store/plp.css">
 </head>
 <body class="joinnus-body">
     <%- include('../../includes/headerStore.ejs') %>
 
     <main>
         <div class="container-section">
-            <div class="principal-events mt-4">
-                <h1 class="subtitle-home"> Resultado </h1>
+            <div class="principal-events d-flex p-0 mt-4">
+                <div class="col-2 p-0">
+                    <h3> Filtros </h3>
+
+                    <form action="/tienda/buscar-eventos" class="search-form" method="GET">                        
+                        <div class="form-row">
+                            <label for="precio">Precio (S/)</label>
+
+                            <div class="col-10 p-0 mb-1">
+                                <input type="number" name="priceMin" placeholder="min.">
+                            </div> 
+
+                            <div class="col-10 p-0">
+                                <input type="number" name="priceMax" placeholder="max.">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="categoria">Categoría</label>
+
+                            <div class="col-10 p-0">
+                                <%- include('../../includes/opcionesCategorias.ejs', {categorias: categorias}) %>
+                            </div> 
+                        </div>
+
+                        <div class="form-row">
+                            <label for="categoria">Ciudad</label>
+
+                            <div class="col-10 p-0">
+                                <select name="ciudad" id="ciudad">
+                                    <% for (let ciudad of citiesOptions) { %>
+                                        <option value="<%= ciudad._id %>"><%= ciudad.nombre %></option>       
+                                    <% } %>                                    
+                                </select>
+                            </div> 
+                        </div>
+
+
+                        <div class="form-row">
+                            <label for="precio">Fecha</label>
+                            
+                            <div class="col-10 p-0 mb-1">
+                                <input type="date" name="dateStart">
+                            </div> 
+
+                            <div class="col-10 p-0">
+                                <input type="date" name="dateEnd">
+                            </div>
+                        </div>                    
+
+                        <div class="form-row">
+                            <button class="principal-btn">Aplicar filtros</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-10 p-0">
+                    <h1 class="subtitle-home"> Eventos </h1>
                     <% if (eventos.length > 0) { %>
                         <div class="eventos-destacados">
                             <% for (let evento of eventos) { %>
@@ -22,7 +78,7 @@
                                                 <%- include('../../svgs/calendar.ejs') %>
                                             </div>
                                             
-                                            <p class="m-0"> <%= evento.fecha %> - <%= evento.hora %> </p>
+                                            <p class="m-0" style="font-size: 12px;"> <%= evento.fecha %> - <%= evento.hora %> </p>
                                         </div>
                                         
                                         <div class="price-info d-flex">                                    
