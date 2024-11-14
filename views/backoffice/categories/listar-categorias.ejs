@@ -26,6 +26,7 @@
                     </div>
 
                     <div class="col-5">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <button class="btn btn-primary">
                             Crear categoría
                         </button>
@@ -49,6 +50,7 @@
                                     <td class="options-row">
                                         <form action="/backoffice/eliminar-categoria" method="POST">
                                             <input type="hidden" value="<%= categoria._id %>" name="idCategoria">
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                             <button class="btn">
                                                 <%- include('../../svgs/btnEliminar.ejs') %>
                                             </button>

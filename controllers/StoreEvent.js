@@ -37,6 +37,7 @@ exports.getDetalleEventoTienda = async (req, res) => {
                     titulo          : evento.nombre,
                     evento          : evento,
                     autenticado     : false,
+                    isAdmiUser      : false,
                     isWishlisted    : false,
                     usuario         : null,
                     fechaFormateada : fechaFormateada, 
@@ -50,12 +51,15 @@ exports.getDetalleEventoTienda = async (req, res) => {
                         const index = usuario.eventosFavoritos.findIndex(evento => evento._id == idEvento);
 
                         isWishlisted = index > -1;                        
-                    }                    
+                    }
+
+                    var isAdmiUser = dataUser.isAdmin;
 
                     return res.render('tienda/events/detalle-evento', {
                         titulo          : evento.nombre,
                         evento          : evento,
                         autenticado     : autenticado,
+                        isAdmiUser      : isAdmiUser,
                         isWishlisted    : isWishlisted,
                         usuario         : dataUser,
                         fechaFormateada : fechaFormateada, 

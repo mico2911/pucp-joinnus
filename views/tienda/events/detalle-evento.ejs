@@ -14,7 +14,7 @@
             <div class="evento-name-section">
                 <h1><%= evento.nombre %></h1>
 
-                <% if (autenticado) { %>
+                <% if (autenticado && !isAdmiUser) { %>
                     <div class="wishlist-icon">
                         <form action="/perfil/<% if (isWishlisted) { %>remove-to-wishlist<% } else { %>add-to-wishlist<% } %>" method="POST">
                             <input type="hidden" name="idEvento" value="<%= evento._id %>">
@@ -66,9 +66,13 @@
                         <% if (!autenticado) { %>
                             <h6>Necesita iniciar sesión para poder comprar entradas. </h6>
                         <% } else { %>
-                            <input type="hidden" value="<%= usuario._id %>" name="idUser">
-                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                            <button class="btn btn-danger">Comprar</button>
+                            <% if (isAdmiUser) { %>
+                                <h6>Los administradores no pueden comprar entradas. </h6>
+                            <% } else { %>
+                                <input type="hidden" value="<%= usuario._id %>" name="idUser">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button class="btn btn-danger">Comprar</button>
+                            <% } %> 
                         <% } %> 
                         
                     <% } else { %>
